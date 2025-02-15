@@ -221,13 +221,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # change user Configs
-# AUTH_USER_MODEL = 'userauths.User'
+AUTH_USER_MODEL = 'userauths.User'
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-# LOGIN_REDIRECT_URL = ''
-# LOGIN_URL = 'userauths:sign-up'
-# LOGOUT_REDIRECT_URL = "userauths:sign-up"
+LOGIN_REDIRECT_URL = ''
+LOGIN_URL = 'userauths:sign-up'
+LOGOUT_REDIRECT_URL = "userauths:sign-up"
 
 
 # api
