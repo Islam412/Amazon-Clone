@@ -22,7 +22,6 @@ class Cart(models.Model):
     coupon = models.ForeignKey('Coupon',related_name='cart_coupon', on_delete=models.SET_NULL, blank=True , null=True)
     total_after_coupon = models.FloatField(_('Total After Coupon'),null=True,blank=True)
 
-
     def __str__(self):
         return str(self.user)
     

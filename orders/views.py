@@ -33,7 +33,7 @@ class OrderListView(LoginRequiredMixin , ListView):
     def get_queryset(self):
         queryset = super().get_queryset().filter(user=self.request.user)
         return queryset
-    
+
 
 
 def add_to_cart(request):
@@ -116,7 +116,6 @@ def checkout(request):
         total = delivery_fee + cart.cart_total()
         coupon = 0
 
-
     return render(request, 'orders/checkout.html',{
         'cart_detail': cart_detail,
         'sub_total': sub_total,
@@ -174,3 +173,11 @@ def payment_success(request):
 
 def payment_failed(request):
     return render(request,'orders/failed.html')
+
+
+def coupon(request):
+    coupon = Coupon.objects.all()
+    context={
+        'coupon': coupon,
+    }
+    return render(request,'orders/coupon.html',context)
