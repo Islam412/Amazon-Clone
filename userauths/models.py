@@ -21,3 +21,36 @@ class User(AbstractUser):
 
     def __str__(self):
         return str(self.username)
+
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    cover_images = models.ImageField(_('Cover Image'), upload_to='Images_Profile', null=True, blank=True, default='user.png')
+    address = models.OneToOneField('Address', null=True, blank=True, on_delete=models.SET_NULL)
+    phone = models.OneToOneField('Phone', null=True, blank=True, on_delete=models.SET_NULL)
+    code = models.CharField(max_length=10, default=generate_code)
+    verified = models.BooleanField(_('Verified'), default=False)
+
+    @property
+    def full_name(self):
+        return f"{self.user.first_name} {self.user.last_name}" if self.user.first_name and self.user.last_name else self.user.username
+
+    @property
+    def email(self):
+        return self.user.email
+
+    @property
+    def username(self):
+        return self.user.username
+
+    @property
+    def address_info(self):
+        return self.address.address if self.address else "No address provided"
+
+    @property
+    def phone_info(self):
+        return self.phone.phone if self.phone else "No phone number provided"
+
+    def __str__(self):
+        return self.user.username if self.user and self.user.username else 'Unnamed Profile'
