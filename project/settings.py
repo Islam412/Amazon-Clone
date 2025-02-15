@@ -123,8 +123,9 @@ TEMPLATES = [
                 # 'settings.company_contexet_processor.get_company_data',
                 # Create or get cart off user
                 # 'orders.cart_context_processor.get_or_create_cart',
+                
                 # Create or get profile data off user
-                # 'userauths.profile_contexet_processor.get_profile_data',
+                'userauths.profile_contexet_processor.get_profile_data',
             ],
         },
     },
