@@ -25,9 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-h$bp&x-eix6izdm2n8hy3g&^!6+9$)4z2t^zsoz%6ry5y0+5!0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ALLOWED_HOSTS = ["*"]
 
-ALLOWED_HOSTS = []
+
+# Stripe API keys
+STRIPE_API_KEY_PUBLISHABLE = 'pk_test_51OK8ZPGjAFyOrV1SUjIoHN0kWvZcwtApbfVBHb8DgLIOO2l2FbDabSMFIw3mzDI5S0yCrORWxOjdqV88bh1CVUAQ00uNuoDQGY'
+STRIPE_API_KEY_SECRET = 'sk_test_51OK8ZPGjAFyOrV1SjdsAiKRyqASR0WrdGpeyCXVJU5u0oXgrRZECOISKH7xmAsp6Birc8SmDH3LOFT06rRg3l0lf00KykeswsK'
 
 
 # Application definition
@@ -39,24 +42,68 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Third party apps
+    'taggit',
+    'rest_framework',
+    'django_filters',
+    'rest_framework_simplejwt',
+    'debug_toolbar',
+    'dj_rest_auth',
+    'rest_framework.authtoken',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'rosetta',
+    'drf_yasg',
+    "bootstrap5",
+    'sslserver',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    "django.middleware.locale.LocaleMiddleware", # django translate middelware
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+
+    # custom with auths
+    # 'allauth.account.auth_backends.AuthenticationBackend',
+
+    # debug_toolbar library
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'allauth.account.middleware.AccountMiddleware',
 ]
+
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
 
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -64,6 +111,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Custom context processors off company data from settings app(company_contexet_processor.py)
+                # 'settings.company_contexet_processor.get_company_data',
+                # Create or get cart off user
+                # 'orders.cart_context_processor.get_or_create_cart',
+                # Create or get profile data off user
+                # 'userauths.profile_contexet_processor.get_profile_data',
             ],
         },
     },
@@ -81,6 +135,31 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# # PostgreSQL
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "MARCATO_DB",
+#         "USER": "postgres",
+#         "PASSWORD": "1111",
+#         "HOST": "127.0.0.1",
+#         "PORT": "5432",
+#     }
+# }
+
+# db with docker
+# DATABASES = {
+#     'default' : {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DATABASE_NAME', 'MARCATO_DB'),
+#         'USER': os.getenv('DATABASE_USER', 'postgres'),
+#         'PASSWORD': os.getenv('DATABASE_PASSWORD', '1111'),
+#         'HOST': os.getenv('DATABASE_HOST', 'db'),
+#         'PORT': os.getenv('DATABASE_PORT', '5432'),  # غيّر من 5433 إلى 5432
+#     }
+# }
 
 
 # Password validation
@@ -130,3 +209,176 @@ MEDIA_ROOT=BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+# change user Configs
+# AUTH_USER_MODEL = 'userauths.User'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# LOGIN_REDIRECT_URL = ''
+# LOGIN_URL = 'userauths:sign-up'
+# LOGOUT_REDIRECT_URL = "userauths:sign-up"
+
+
+# api
+# Filter api setting
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+
+}
+
+# JWT Authintication settings
+from datetime import timedelta # import this library top of the settings.py file
+
+# put on your settings.py file below INSTALLED_APPS
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 30,
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=30),
+    'SLIDING_TOKEN_REFRESH_LIFETIME_LATE_USER': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME_LATE_USER': timedelta(days=30),
+}
+
+
+# translations settings
+LOCALE_PATHS = [
+    "locale",
+]
+
+# select language
+LANGUAGES = [
+    ("ar", _("Arabic")),
+    ("en", _("English")),
+]
+
+# herouko settings
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": BASE_DIR / "media",
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
+
+# django_heroku.settings[locals]
+
+# django cache settings
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django.core.cache.backends.redis.RedisCache",
+#         # "LOCATION": "redis://127.0.0.1:6379", # without docker
+#         "LOCATION": 'redis://myredis:6379/0',  # on docker
+#     }
+# }
+
+
+# django celery settings
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+
+# docker connet celery and redis
+# CELERY_BROKER_URL = 'redis://myredis:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://myredis:6379/0'
+
+# CELERY_BROKER_URL = 'redis://myredis:6379/0'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_BACKEND = 'redis://myredis:6380/0'
+
+
+
+
+# JAZZMIN settings
+JAZZMIN_SETTINGS = {
+    'site_header': "Marcato store",
+    'site_brand': "Marcato store...",
+    'site_logo': "en/assets/img/marcato.png",
+    'copyright':  "All Right Reserved 2024",
+    "welcome_sign": "Welcome to Marcato store Admin, Login Now.",
+    "topmenu_links": [
+        
+    ],
+
+    "order_with_respect_to": [
+        "userauths",
+        "orders",
+        "products",
+        "settings",
+    ],
+    
+    "icons": {
+        "admin.LogEntry": "fas fa-file",
+
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+
+        "userauths.User": "fas fa-user",
+        "userauths.Profile":"fas fa-address-card",
+
+    },
+
+    "show_ui_builder" : True
+}
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": True,
+    "brand_small_text": False,
+    "brand_colour": "navbar-indigo",
+    "accent": "accent-olive",
+    "navbar": "navbar-indigo navbar-dark",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-indigo",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "cyborg",
+    "dark_mode_theme": "cyborg",
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
+}
+
+
+REST_AUTH = {
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'jwt-auth',
+}
