@@ -40,6 +40,8 @@ def send_emails(request):
         sent_emails = cache.get('sent_emails', [])
         return JsonResponse({'status': progress, 'sent_emails': sent_emails})
 
+
+
 class ProductList(ListView):
     model = Product
     paginate_by = 30
