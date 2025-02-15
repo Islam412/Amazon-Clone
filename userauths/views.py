@@ -90,4 +90,20 @@ class LogoutView(LoginRequiredMixin, TemplateView):
 
 
 
+# @login_required
+class ProfileView(DetailView):
+    model = Profile
+    template_name = 'userauths/profile.html'
+    context_object_name = 'profile'
 
+    def get_object(self, queryset=None):
+        return get_object_or_404(Profile, user=self.request.user)
+    
+
+# return data off phoens and adsress and credit cards
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['phones'] = self.get_object().user.user_phone.all()
+        context['address'] = self.get_object().user.user_address.all()
+        context['credit'] = self.get_object().user.user_credit_cards.all() # user_credit_cards ----->the name off lien at db
+        return context
