@@ -34,3 +34,16 @@ class CustomPagination(PageNumberPagination):
     page_size = 10
     page_size_query_param = 'page_size'
     max_page_size = 100
+
+
+
+class ProductListAPI(generics.ListCreateAPIView):  # list show all dsta | create update data
+    queryset = Product.objects.all()
+    serializer_class = ProductListSerializers
+    filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
+    filterset_fields = ['flag', 'brand']
+    search_fields = ['name', 'descripition']
+    ordering_fields = ['price', 'quantity']
+    filterset_class = ProductFilter
+    pagination_class = CustomPagination
+    permission_classes = [AllowAny]
