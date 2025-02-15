@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'rosetta',
     'drf_yasg',
     "bootstrap5",
+    'sslserver',
 ]
 
 
