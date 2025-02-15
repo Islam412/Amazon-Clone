@@ -10,3 +10,13 @@ class CartDetailSerializer(serializers.Serializer):
     class Meta:
         model = CartDetails
         fields = '__all__'
+
+
+
+class CartSerializer(serializers.ModelSerializer):
+    cart_details = CartDetailSerializer(many=True)
+    coupon = serializers.StringRelatedField()
+
+    class Meta:
+        model = Cart
+        fields = '__all__'
