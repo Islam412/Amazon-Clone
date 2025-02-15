@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block boody %}
+<style>
+  .payment-failed-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #ffeaea, #ffd6d6);
+    border: 2px solid #d32f2f;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .payment-failed-container h1 {
+    font-size: 32px;
+    color: #d32f2f;
+    margin-bottom: 15px;
+    font-weight: bold;
+  }
+
+  .payment-failed-container p {
+    font-size: 18px;
+    color: #444;
+  }
+</style>
+
+
+  <div class="payment-failed-container">
+    <h1>Payment Failed or Canceled</h1>
+    <p>There id an error processing your payment or you canceld</p>
+  </div>
+{% endblock boody %}

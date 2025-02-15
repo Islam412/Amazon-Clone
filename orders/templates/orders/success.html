@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block boody %}
+<style>
+  .payment-success-container {
+    text-align: center;
+    margin: 50px auto;
+    padding: 20px;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #e0ffe8, #d0f0ff);
+  }
+
+  .payment-success-container h1 {
+    color: #2d9a4c;
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .payment-success-container p {
+    color: #444;
+    font-size: 18px;
+  }
+</style>
+
+  <div class="payment-success-container">
+    <h1>Payment Success</h1>
+    <p>Thank's for purchasing with us</p>
+  </div>
+{% endblock boody %}
