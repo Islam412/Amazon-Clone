@@ -128,6 +128,7 @@ def checkout(request):
 
 
 
+
 def process_payment(request):
     cart = Cart.objects.get(user=request.user, status='InProgress')
     cart_detail = CartDetails.objects.filter(cart=cart)
