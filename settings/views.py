@@ -6,7 +6,8 @@ from django.views.decorators.cache import cache_page
 from products.models import Product , Brand , Review
 
 # Create your views here.
-
+# from django.contrib.auth.decorators import login_required
+# @login_required
 # @cache_page(60 * 60 * 24)
 def home(request):
     brands = Brand.objects.all().annotate(products_count=Count('product_name'))

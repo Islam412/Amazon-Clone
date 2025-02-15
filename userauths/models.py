@@ -99,8 +99,8 @@ Phone_TYPE = [
 
 class Phone(models.Model):
     user = models.ForeignKey(User, related_name='user_phone', on_delete=models.CASCADE)
-    type = models.CharField(_('Notes'),max_length=20, choices=Phone_TYPE)
-    phone = models.CharField(_('Notes'),max_length=30)
+    type = models.CharField(_('type'),max_length=20, choices=Phone_TYPE)
+    phone = models.CharField(_('phone'),max_length=30)
 
     def clean(self):
         if not self.phone.isdigit():
