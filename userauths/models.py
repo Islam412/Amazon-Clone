@@ -121,3 +121,16 @@ def create_or_update_profile_with_phone(sender, instance, created, **kwargs):
     if instance.user.profile:
         instance.user.profile.phone = instance
         instance.user.profile.save()
+
+
+class CreditCard(models.Model):
+    user = models.ForeignKey(User, related_name='user_credit_cards', on_delete=models.CASCADE)
+    image = models.ImageField(_('Image'), upload_to='Images_credit', null=True, blank=True, default='credit.webp')
+    name = models.CharField(_('Name'),max_length=225)
+    card_number = models.CharField(_('Card Number'),max_length=16)
+    country = models.CharField(_('Country'),max_length=225)
+    cvv = models.CharField(_('CVV'),max_length=3)
+    expiration_date = models.DateField(_('Expiration Date'),)
+
+    def __str__(self):
+        return f"Card ending in {self.card_number[-4:]} - {self.user.username}"
