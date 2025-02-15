@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    {% if LANGUAGE_CODE == 'en' %}
+        <link rel="stylesheet" href="{% static 'en/css/brand-single.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'ar/css/brand-single.css' %}">
+    {% endif %}
+{% endblock css %}
+    
+{% block boody %}
+
+
+        <!--=====================================
+                    BANNER PART START
+        =======================================-->
+        <section class="single-banner" style="background: url(images/single-banner.jpg) no-repeat center;">
+            <div class="container">
+                <h2>Brand Single</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'products:brand_list' %}">brand-list</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">brand-single</li>
+                </ol>
+            </div>
+        </section>
+        <!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+        <!--=====================================
+                  BRAND SINGLE PART START
+        =======================================-->
+        <div class="brand-single">
+            <a href="#"><img src="{{brand.image.url}}" style="width: 200px; height: 200px;" alt="brand"></a>
+            <a href="#"><h3>{{brand}}</h3></a>
+            {% comment %} <ul>
+                <i class="icofont-star {% if brand.avg_rate > 0 %}active{% endif %}"></i>
+                <i class="icofont-star {% if brand.avg_rate > 1 %}active{% endif %}"></i>
+                <i class="icofont-star {% if brand.avg_rate > 2 %}active{% endif %}"></i>
+                <i class="icofont-star {% if brand.avg_rate > 3 %}active{% endif %}"></i>
+                <i class="icofont-star {% if brand.avg_rate > 4 %}active{% endif %}"></i>
+                <a href="#">(({{brand.review_product.all|length}})</a>
+            </ul> {% endcomment %}
+            <p>({{brand.products_count}} items)</p>
+        </div>
+        <!--=====================================
+                  BRAND SINGLE PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    SHOP PART START
+        =======================================-->
+        <section class="inner-section shop-part">
+            <div class="container">
+
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-5">
+                    
+                    {% for object in object_list %}
+ 
+                        <div class="col">
+                            <div class="product-card">
+                                <div class="product-media">
+                                    <div class="product-label">
+                                        <label class="label-text new">{{object.flag}}</label>
+                                    </div>
+                                    <button class="product-wish wish">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <a class="product-image" href="{% url 'products:product_detail' object.slug %}">
+                                        <img src="{{object.image.url}}" style="width: 257px; height: 257px;" alt="product">
+                                    </a>
+                                </div>
+                                <div class="product-content">
+                                    <div class="product-rating">
+                                        <i class="icofont-star {% if object.avg_rate > 0 %}active{% endif %}"></i>
+                                        <i class="icofont-star {% if object.avg_rate > 1 %}active{% endif %}"></i>
+                                        <i class="icofont-star {% if object.avg_rate > 2 %}active{% endif %}"></i>
+                                        <i class="icofont-star {% if object.avg_rate > 3 %}active{% endif %}"></i>
+                                        <i class="icofont-star {% if object.avg_rate > 4 %}active{% endif %}"></i>
+                                        <a href="{% url 'products:product_detail' object.slug %}">({{object.review_product.all|length}})</a>
+                                    </div>
+                                    <h6 class="product-name">
+                                        <a href="{% url 'products:product_detail' object.slug %}">{{object}}</a>
+                                    </h6>
+                                    <h6 class="product-price">
+                                        <span>${{object.price}}</span>
+                                    </h6>
+                                    <button class="product-add" title="Add to Cart">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        <span>add</span>
+                                    </button>
+                                    <div class="product-action">
+                                        <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
+                                        <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
+                                        <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                        
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bottom-paginate">
+                            <p class="page-info">Showing 12 of 60 Results</p>
+                            <ul class="pagination">
+                                {% comment %} before {% endcomment %}
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                            <i class="fas fa-long-arrow-alt-left"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                    
+                                {% for i in paginator.page_range %}
+                                    {% if page_obj.number == i %}
+                                        {% comment %} The page is on it {% endcomment %}
+                                        <li class="page-item"><a class="page-link active" href="#">{{i}}</a></li>
+                                    {% elif  i > page_obj.number|add:'-4'  and i < page_obj.number|add:'4' %}
+                                        {% comment %} The Pages after me {% endcomment %}
+                                        <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                                    
+                                {% comment %} After {% endcomment %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                            <i class="fas fa-long-arrow-alt-right"></i>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================
+                    SHOP PART END
+        =======================================-->
+        
+{% endblock boody %}

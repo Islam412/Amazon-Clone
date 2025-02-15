@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ececec;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+            font-size: 28px;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            padding: 20px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h3 {
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .card .price {
+            color: #27ae60;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card .flag {
+            color: #3498db;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .card .brand {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h2>Debug Page</h2>
+    <div class="card-container">
+        {% for product in data %}
+        <div class="card">
+            <div class="brand">{{ product.brand }}</div>
+            <br>
+            <h3>{{ product.name }}</h3>
+            <img src="{{ product.image.url }}" style="width: 100px;hieight: 100px" alt="{{ product.name }}">
+            <p class="flag">{{ product.flag }}</p>
+            <p>{{ product.subtitle }}</p>
+            <p>{{ product.description }}</p>
+            <p class="price">${{ product.price }}</p>
+            <p><strong>SKU:</strong> {{ product.sku }}</p>
+            <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+            <p><strong>Tags:</strong> {{ product.tags }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

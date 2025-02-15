@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sending Progress</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #ececec;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+            font-size: 28px;
+        }
+
+        .progress-container {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            color: #27ae60;
+            text-align: center;
+        }
+
+        .email-list {
+            margin-top: 20px;
+        }
+
+        .email-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .email-list li {
+            background: #e74c3c;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Email Sending Progress</h2>
+    <div class="progress-container">
+        <div id="progress-status">Waiting to start...</div>
+    </div>
+
+    <div class="email-list">
+        <h3>Sent Emails:</h3>
+        <ul id="sent-emails-list">
+        </ul>
+    </div>
+
+    <script>
+        function fetchProgress() {
+            fetch('/products/send-email/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('progress-status').textContent = data.status;
+
+                const emailList = document.getElementById('sent-emails-list');
+                emailList.innerHTML = '';
+                data.sent_emails.forEach(email => {
+                    const li = document.createElement('li');
+                    li.textContent = email;
+                    emailList.appendChild(li);
+                });
+
+                if (!data.status.includes("Completed")) {
+                    setTimeout(fetchProgress, 1000);
+                }
+            });
+        }
+
+        window.onload = function() {
+            fetchProgress();
+        }
+    </script>
+</body>
+</html>
