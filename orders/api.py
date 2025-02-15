@@ -48,4 +48,14 @@ class CartDetailCreateAPI(generics.GenericAPIView):
 
 
 
+class OrderListAPI(generics.ListAPIView):
+    serializer_class = OrderListSerializer
+    permission_classes = [AllowAny]
+    queryset = Order.objects.all()
 
+    def list(self, request, *args, **kwargs):
+        user = User.objects.get(username=self.kwargs['username'])
+        queryset = self.get_queryset().filter(user=user)
+        data = OrderListSerializer(queryset, many=True).data
+        return Response(data)
+    
