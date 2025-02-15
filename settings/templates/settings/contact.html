@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    {% if LANGUAGE_CODE == 'en' %}
+        <link rel="stylesheet" href="{% static 'en/css/contact.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'ar/css/contact.css' %}">
+    {% endif %}
+{% endblock css %}
+    
+{% block boody %}
+        <!--=====================================
+                    BANNER PART START
+        =======================================-->
+        <section class="inner-section single-banner" style="background: url(images/single-banner.jpg) no-repeat center;">
+            <div class="container">
+                <h2>contact us</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Contact</li>
+                </ol>
+            </div>
+        </section>
+        <!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    CONTACT PART START
+        =======================================-->
+        <section class="inner-section contact-part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="contact-card">
+                            <i class="icofont-location-pin"></i>
+                            <a href="https://www.google.com/maps?q={{ company_data.address }}"><h4>head office</h4></a>
+                            <p>
+                                <a href="https://www.google.com/maps?q={{ company_data.address }}">{{ company_data.address }}</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="contact-card active">
+                            <i class="icofont-phone"></i>
+                            <a href="https://wa.me/{{ company_data.phones }}"><h4>phone number</h4></a>
+                            <p>
+                                <a href="https://wa.me/{{ company_data.phones }}">{{ company_data.phones }}</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="contact-card">
+                            <i class="icofont-email"></i>
+                            <a href="mailto:{{ company_data.email }}"><h4>Support mail</h4></a>
+                            <p>
+                                <a href="mailto:{{ company_data.email }}">{{ company_data.email }}</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="contact-map">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.3406974350205!2d90.48469931445422!3d23.663771197998262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b0d5983f048d%3A0x754f30c82bcad3cd!2sJalkuri%20Bus%20Stop!5e0!3m2!1sen!2sbd!4v1605354966349!5m2!1sen!2sbd" aria-hidden="false" tabindex="0"></iframe>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <form class="contact-form">
+                            <h4>Drop Your Thoughts</h4>
+                            <div class="form-group">
+                                <div class="form-input-group">
+                                    <input class="form-control" type="text" placeholder="Your Name">
+                                    <i class="icofont-user-alt-3"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-input-group">
+                                    <input class="form-control" type="text" placeholder="Your Email">
+                                    <i class="icofont-email"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-input-group">
+                                    <input class="form-control" type="text" placeholder="Your Subject">
+                                    <i class="icofont-book-mark"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-input-group">
+                                    <textarea class="form-control" placeholder="Your Message"></textarea>
+                                    <i class="icofont-paragraph"></i>
+                                </div>
+                            </div>
+                            <button type="submit" class="form-btn-group">
+                                <i class="fas fa-envelope"></i>
+                                <span>send message</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================
+                    CONTACT PART END
+        =======================================-->
+{% endblock boody %}
