@@ -8,7 +8,6 @@ from taggit.managers import TaggableManager
 
 from userauths.models import User
 
-
 # Create your models here.
 
 
@@ -64,6 +63,7 @@ class ProductImage(models.Model):
     def __str__(self):
         return str(self.product)
     
+
 
 
 
