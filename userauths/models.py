@@ -69,3 +69,22 @@ def save_user_profile(sender, instance, **kwargs):
 
 post_save.connect(create_user_profile ,sender=User)
 post_save.connect(save_user_profile ,sender=User)
+
+
+
+ADDRESS_TYPE = [
+    ('Home', 'Home'),
+    ('Business','Business'),
+    ('Office','Office'),
+    ('Academy','Academy'),
+    ('Other','Other'),
+]
+
+class Address(models.Model):
+    user = models.ForeignKey(User,related_name='user_address',on_delete=models.CASCADE)
+    type = models.CharField(_('Type'),max_length=20,choices=ADDRESS_TYPE)
+    address = models.TextField(_('address'),max_length=300)
+    notes = models.TextField(_('Notes'),null=True,blank=True)
+
+    def __str__(self):
+        return f"{self.type} - {self.address}"
