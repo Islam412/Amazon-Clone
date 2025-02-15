@@ -67,3 +67,40 @@ class BrandList(ListView):
     queryset = Brand.objects.annotate(products_count=Count('product_name'))
     paginate_by = 20
     ordering = ['-id']
+
+
+
+class BrandDetails(ListView):
+    model = Product
+    paginate_by = 20
+    template_name = 'products/brand_detail.html'
+    
+    def get_queryset(self):
+        brand = Brand.objects.get(slug=self.kwargs['slug'])
+        return super().get_queryset().filter(brand=brand)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        brand = Brand.objects.annotate(products_count=Count('product_name')).get(slug=self.kwargs['slug'])
+        context["brand"] = brand  
+
+        return context 
+    
+
+
+
+# search and filter with category
+def product_search(request):
+    query = request.GET.get('q', '')
+    if query:
+        # Search products by name, description, or SKU
+        products = Product.objects.filter(
+            Q(name__icontains=query) | 
+            Q(descripition__icontains=query) |
+            Q(sku__icontains=query) |
+            Q(tags__name__icontains=query)
+        ).distinct()
+    else:
+        products = Product.objects.all()
+    
+    return render(request, 'products/product_search.html', {'product_list': products})
