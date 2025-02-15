@@ -108,3 +108,16 @@ class Phone(models.Model):
 
     def __str__(self):
         return f"{self.type} - {self.phone}"
+
+
+@receiver(post_save, sender=Address)
+def create_or_update_profile_with_address(sender, instance, created, **kwargs):
+    if instance.user.profile:
+        instance.user.profile.address = instance
+        instance.user.profile.save()
+
+@receiver(post_save, sender=Phone)
+def create_or_update_profile_with_phone(sender, instance, created, **kwargs):
+    if instance.user.profile:
+        instance.user.profile.phone = instance
+        instance.user.profile.save()
