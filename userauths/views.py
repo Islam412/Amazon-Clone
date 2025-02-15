@@ -10,8 +10,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 
-from rest_framework.permissions import IsAuthenticated, AllowAny
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListAPIView ,CreateAPIView, UpdateAPIView
 
 from userauths.models import User , Profile
 from userauths.forms import UserRegisterForm , ProfileForm
