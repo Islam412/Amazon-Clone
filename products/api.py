@@ -25,3 +25,12 @@ def product_detail_api(request,product_name):
     products = Product.objects.get(id=product_name)
     data = ProductDetailSerializers(products, context={'request':request}).data
     return Response({'products':data})
+
+
+
+# class generic view api
+
+class CustomPagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 100
