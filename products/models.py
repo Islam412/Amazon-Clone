@@ -64,3 +64,28 @@ class ProductImage(models.Model):
     def __str__(self):
         return str(self.product)
     
+
+
+
+class Brand(models.Model):
+    name = models.CharField(_('Name'),max_length=100)
+    image = models.ImageField(_('Image'),upload_to='brands')
+    slug = models.SlugField(unique=True,null=True,blank=True)
+
+    
+    def __str__(self):
+        return self.name
+    
+    # Add the result to the stars
+    # instance methods = each object , self=object
+    def avg_rate(self):
+        avg = self.review_product.aggregate(rate_avg=Avg('rate'))
+        if not avg['rate_avg']:
+            return 0
+            return result
+        return avg['rate_avg']
+    
+    def save(self, *args, **kwargs):
+       self.slug = slugify(self.name)
+       super(Brand, self).save(*args, **kwargs)
+    
