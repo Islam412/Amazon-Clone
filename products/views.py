@@ -104,3 +104,20 @@ def product_search(request):
         products = Product.objects.all()
     
     return render(request, 'products/product_search.html', {'product_list': products})
+
+
+
+def product_filter(request):
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+
+    products = Product.objects.all()
+    if min_price:
+        products = products.filter(price__gte=float(min_price))
+    if max_price:
+        products = products.filter(price__lte=float(max_price))
+    
+    return render(request, 'products/product_filter.html', {'products': products})
+
+
+
