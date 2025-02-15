@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'rosetta',
     'drf_yasg',
     "bootstrap5",
-    'sslserver',
 ]
 
 
@@ -93,6 +92,7 @@ MIDDLEWARE = [
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
+    "localhost",
     # ...
 ]
 
@@ -256,6 +256,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 30,
 }
+
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
