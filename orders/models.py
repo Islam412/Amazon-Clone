@@ -85,3 +85,21 @@ class OrderDetails(models.Model):
 
     def __str__(self):
         return str(self.order)
+
+
+class Coupon(models.Model):
+    image = models.ImageField(_('Image'),upload_to='coupon', blank=True, null=True)
+    code = models.CharField(_('Code'), max_length=20)
+    discount = models.IntegerField(_('Discount'))
+    quantity = models.IntegerField(_('Quantity'))
+    start_date = models.DateField(_('Start Date'), default=timezone.now)
+    end_date = models.DateField(_('End Date'), null=True,blank=True)
+
+    def __str__(self):
+        return self.code
+    
+
+    def save(self, *args, **kwargs):
+       week = datetime.timedelta(days=7)
+       self.end_date = self.start_date + week
+       super(Coupon, self).save(*args, **kwargs)  # call the real save method
