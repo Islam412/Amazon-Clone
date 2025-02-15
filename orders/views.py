@@ -169,3 +169,7 @@ def process_payment(request):
 
 def payment_success(request):
     return render(request,'orders/success.html')
+
+
+def payment_failed(request):
+    return render(request,'orders/failed.html')
