@@ -36,4 +36,14 @@ class Cart(models.Model):
         if self.total_after_coupon:
             return round(self.cart_total() - self.total_after_coupon, 2)
         return 0.0
-        
+
+
+
+class CartDetails(models.Model):
+    cart = models.ForeignKey(Cart,related_name='cart_details', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='cart_product', on_delete=models.SET_NULL, null=True, blank=True)
+    quantity = models.IntegerField(_('Quantity'),default=1)
+    total = models.FloatField(_('Total'),null=True,blank=True)
+
+    def __str__(self):
+        return str(self.cart)
