@@ -60,3 +60,10 @@ class ProductDetails(DetailView):
         context["rate_products"] = Product.objects.filter(brand=product.brand)
         return context
     
+
+
+class BrandList(ListView):
+    model = Brand
+    queryset = Brand.objects.annotate(products_count=Count('product_name'))
+    paginate_by = 20
+    ordering = ['-id']
