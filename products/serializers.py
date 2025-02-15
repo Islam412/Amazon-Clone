@@ -63,3 +63,11 @@ class ProductDetailSerializers(TaggitSerializer,serializers.ModelSerializer):
     def get_review_count(self, product:Product):
         review = product.review_product.all().count()
         return review
+
+
+
+class BrandDetailSerializers(serializers.ModelSerializer):
+    products = ProductListSerializers(source='product_name', many=True)
+    class Meta:
+        model = Brand
+        fields = '__all__'
