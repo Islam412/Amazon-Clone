@@ -97,3 +97,38 @@ class CreateOrderAPI(generics.GenericAPIView):
         cart.status = 'Completed'
         cart.save()
         return Response({'message':'Order created successfully'})
+
+
+
+
+class ApplyCouponAPI(generics.GenericAPIView):
+    permission_classes = [AllowAny]
+    
+    def get(self, request, *args, **kwargs):
+        user = User.objects.get(username=self.kwargs['username'])
+        cart = Cart.objects.get(user=user,status='InProgress')
+
+        coupon = get_object_or_404(Coupon,code=request.data['coupon_code']) # 404 with out coupon
+        # coupon = Coupon.objects.get(code=request.data['coupon_code']) # erorr without coupon
+
+        if coupon and coupon.quantity > 0:
+            today_date = datetime.datetime.today().date()
+
+            if today_date >= coupon.start_date and coupon.end_date:
+                coupon_value = cart.cart_total() * coupon.discount/100
+                cart_total = cart.cart_total() - coupon_value
+
+                coupon.quantity -= 1
+                coupon.save()
+
+                cart.coupon = coupon
+                cart.total_after_coupon = cart_total
+                cart.save()
+
+                cart = Cart.objects.get(user=user,status='InProgress')
+                data = CartSerializer(cart).data
+                return Response({'message':'Coupon applying successfully','cart':data})
+            else:
+                return Response({'message':'Coupon is expired'})
+        else:
+            return Response({'message':'Coupon is not found'})
