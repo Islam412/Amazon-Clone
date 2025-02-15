@@ -9,7 +9,7 @@ from django.template.loader import render_to_string
 
 
 from .models import Product, Brand, ProductImage, Review
-from .tasks import send_email
+from .task import send_email
 
 
 @cache_page(60 * 1)
@@ -85,7 +85,7 @@ class BrandDetails(ListView):
         context["brand"] = brand  
 
         return context 
-    
+
 
 
 

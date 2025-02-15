@@ -30,9 +30,9 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # application
     path('user/', include('userauths.urls')),
-    # path('', include('settings.urls')),
-    # path('products/', include('products.urls')),
-    # path('orders/', include('orders.urls')),
+    path('', include('settings.urls')),
+    path('products/', include('products.urls')),
+    path('orders/', include('orders.urls')),
 
     path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('dj-rest-auth/registration/', include('dj_rest_auth.registration.urls')),

@@ -87,7 +87,28 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <ul class="orderlist-details">
-                                                <li>
+
+                                                <ul class="orderlist-details">
+                                                    <li>
+                                                        <h6>Sub Total</h6>
+                                                        <p>$10,864.00</p>
+                                                    </li>
+                                                    <li>
+                                                        <h6>discount</h6>
+                                                        <p>$20.00</p>
+                                                    </li>
+                                                    <li>
+                                                        <h6>delivery fee</h6>
+                                                        <p>$49.00</p>
+                                                    </li>
+                                                    <li>
+                                                        <h6>Total<small>(Incl. VAT)</small></h6>
+                                                        <p>$10,874.00</p>
+                                                    </li>
+                                                </ul>
+
+
+                                                {% comment %} <li>
                                                     <h6>Sub Total</h6>
                                                     <p>${{ cart_data.cart_total }}</p>
                                                 </li>
@@ -111,7 +132,7 @@
                                                         <p>${{ cart_data.cart_total }}</p>
                                                     {% endif %}
                                                 </li>
-                                            </ul>
+                                            </ul> {% endcomment %}
                                         </div>
                                         
                                         

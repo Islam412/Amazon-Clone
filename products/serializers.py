@@ -30,7 +30,6 @@ class ProductListSerializers(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
     
-
     def get_avg_rate(self, product):
         avg = product.review_product.aggregate(rate_avg=Avg('rate'))
         if not avg['rate_avg']:

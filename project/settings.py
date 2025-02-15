@@ -27,6 +27,8 @@ SECRET_KEY = 'django-insecure-h$bp&x-eix6izdm2n8hy3g&^!6+9$)4z2t^zsoz%6ry5y0+5!0
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = ["*"]
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 # Stripe API keys
 STRIPE_API_KEY_PUBLISHABLE = 'pk_test_51OK8ZPGjAFyOrV1SUjIoHN0kWvZcwtApbfVBHb8DgLIOO2l2FbDabSMFIw3mzDI5S0yCrORWxOjdqV88bh1CVUAQ00uNuoDQGY'
@@ -93,7 +95,6 @@ MIDDLEWARE = [
 INTERNAL_IPS = [
     # ...
     "127.0.0.1",
-    "localhost",
     # ...
 ]
 
@@ -120,9 +121,10 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # Custom context processors off company data from settings app(company_contexet_processor.py)
-                # 'settings.company_contexet_processor.get_company_data',
+                'settings.company_contexet_processor.get_company_data',
+
                 # Create or get cart off user
-                # 'orders.cart_context_processor.get_or_create_cart',
+                'orders.cart_context_processor.get_or_create_cart',
                 
                 # Create or get profile data off user
                 'userauths.profile_contexet_processor.get_profile_data',
