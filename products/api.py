@@ -54,3 +54,11 @@ class ProductDetailAPI(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductDetailSerializers
     permission_classes = [AllowAny]
+
+
+
+class BrandListAPI(generics.ListCreateAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandListSerializers
+    pagination_class = CustomPagination
+    permission_classes = [AllowAny]
