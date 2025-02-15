@@ -121,3 +121,11 @@ def product_filter(request):
 
 
 
+def product_filter_by_flag(request):
+    tags = request.GET.getlist('tags')
+    products = Product.objects.all()
+
+    if tags:
+        products = products.filter(flag__in=tags)
+
+    return render(request, 'products/product_filter_by_tag.html', {'products': products})
