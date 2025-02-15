@@ -61,3 +61,71 @@ def remove_from_checkout(request,id):
     cart_detail = CartDetails.objects.get(id=id)
     cart_detail.delete()
     return redirect('/orders/checkout')
+
+
+
+@login_required 
+def checkout(request):
+    cart = Cart.objects.get(user=request.user,status='InProgress')
+    cart_detail = CartDetails.objects.filter(cart=cart)
+    delivery_fee = DeliveryFee.objects.last().fee
+    pub_key = settings.STRIPE_API_KEY_PUBLISHABLE
+
+    if request.method == 'POST':
+        coupon = get_object_or_404(Coupon,code=request.POST['coupon_code']) # 404 with out coupon
+        # coupon = Coupon.objects.get(code=request.data['coupon_code']) # erorr without coupon
+
+
+        if coupon and coupon.quantity > 0:
+            today_date = datetime.datetime.today().date()
+
+            if today_date >= coupon.start_date and coupon.end_date:
+                coupon_value = cart.cart_total() * coupon.discount/100
+                cart_total = cart.cart_total() - coupon_value
+
+                coupon.quantity -= 1
+                coupon.save()
+
+                cart.coupon = coupon
+                cart.total_after_coupon = cart_total
+                cart.save()
+
+                total = delivery_fee + cart_total
+
+                cart = Cart.objects.get(user=request.user,status='InProgress')
+
+                html = render_to_string('include/checkout_table.html',{
+                    'cart_detail': cart_detail,
+                    'sub_total': cart_total,
+                    'cart_total': total,
+                    'coupon': coupon_value,
+                    'delivery_fee': delivery_fee,
+                    'pub_key':pub_key,
+                })
+                return JsonResponse({'result': html})
+
+                # return render(request, 'orders/checkout.html',{
+                #     'cart_detail': cart_detail,
+                #     'sub_total': cart_total,
+                #     'cart_total': total,
+                #     'coupon': coupon_value,
+                #     'delivery_fee': delivery_fee,
+                # })
+    else:
+        sub_total = cart.cart_total()
+        total = delivery_fee + cart.cart_total()
+        coupon = 0
+
+
+    return render(request, 'orders/checkout.html',{
+        'cart_detail': cart_detail,
+        'sub_total': sub_total,
+        'cart_total': total,
+        'coupon': coupon,
+        'delivery_fee': delivery_fee,
+        'pub_key':pub_key,
+    })
+
+
+
+
