@@ -36,6 +36,9 @@ STRIPE_API_KEY_SECRET = 'sk_test_51OK8ZPGjAFyOrV1SjdsAiKRyqASR0WrdGpeyCXVJU5u0oX
 # Application definition
 
 INSTALLED_APPS = [
+    # Custom Django Admin
+    'jazzmin',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
