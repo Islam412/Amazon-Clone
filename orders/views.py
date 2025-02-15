@@ -164,3 +164,8 @@ def process_payment(request):
     )
 
     return JsonResponse({'session': checkout_session})
+
+
+
+def payment_success(request):
+    return render(request,'orders/success.html')
