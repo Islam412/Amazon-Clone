@@ -88,3 +88,23 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.type} - {self.address}"
+
+
+Phone_TYPE = [
+    ('Primary','Primary'),
+    ('Secondary','Secondary'),
+    ('Third','Third')
+]
+
+
+class Phone(models.Model):
+    user = models.ForeignKey(User, related_name='user_phone', on_delete=models.CASCADE)
+    type = models.CharField(_('Notes'),max_length=20, choices=Phone_TYPE)
+    phone = models.CharField(_('Notes'),max_length=30)
+
+    def clean(self):
+        if not self.phone.isdigit():
+            raise ValidationError("Phone number must be numeric.")
+
+    def __str__(self):
+        return f"{self.type} - {self.phone}"
