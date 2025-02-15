@@ -36,3 +36,12 @@ class OrderProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderDetails
         fields = '__all__'
+
+
+class OrderDetailsSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    product = OrderProductSerializer(many=True, source='order_details')
+
+    class Meta:
+        model = Order
+        fields = '__all__'
