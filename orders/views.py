@@ -128,4 +128,39 @@ def checkout(request):
 
 
 
+def process_payment(request):
+    cart = Cart.objects.get(user=request.user, status='InProgress')
+    cart_detail = CartDetails.objects.filter(cart=cart)
+    delivery_fee = DeliveryFee.objects.last().fee
 
+    if cart.total_after_coupon:
+        total = cart.total_after_coupon + delivery_fee
+    else:
+        total = cart.cart_total() + delivery_fee
+
+    code = generate_code()
+
+    stripe.api_key = settings.STRIPE_API_KEY_SECRET
+
+
+    items = [
+        {
+            'price_data': {
+                'currency': 'usd',
+                'product_data': {
+                    'name': code,
+                },
+                'unit_amount': int(total * 100),
+            },
+            'quantity': 1,
+        }
+    ]
+
+    checkout_session = stripe.checkout.Session.create(
+        line_items=items,
+        mode='payment',
+        success_url="http://127.0.0.1:8000/orders/checkout/payment/success",  # استخدام HTTPS هنا
+        cancel_url="http://127.0.0.1:8000/orders/checkout/payment/failed",  # استخدام HTTPS هنا
+    )
+
+    return JsonResponse({'session': checkout_session})
