@@ -328,11 +328,11 @@ STORAGES = {
 
 # JAZZMIN settings
 JAZZMIN_SETTINGS = {
-    'site_header': "Marcato store",
-    'site_brand': "Marcato store...",
-    'site_logo': "en/assets/img/marcato.png",
+    'site_header': "Store",
+    'site_brand': "Store...",
+    'site_logo': "en/assets/img/amazon.png",
     'copyright':  "All Right Reserved 2024",
-    "welcome_sign": "Welcome to Marcato store Admin, Login Now.",
+    "welcome_sign": "Welcome to store Admin, Login Now.",
     "topmenu_links": [
         
     ],
