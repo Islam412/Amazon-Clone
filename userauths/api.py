@@ -22,3 +22,7 @@ class UserListAPIView(ListAPIView):
 class UserCreateAPIView(CreateAPIView):
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+
+class ProfileCreateAPIView(CreateAPIView):
+    serializer_class = ProfileSerializer
