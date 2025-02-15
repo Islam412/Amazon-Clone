@@ -27,3 +27,20 @@ def queryset_debug(request):
 
     
     return render(request, 'products/queryset_debug.html', {'data': data})
+
+
+
+def send_emails(request):
+    if request.method == 'GET':
+        send_email.delay()  
+        return render(request, 'products/send_email.html')
+
+    elif request.method == 'POST':
+        progress = cache.get('email_progress', 'No progress yet.')
+        sent_emails = cache.get('sent_emails', [])
+        return JsonResponse({'status': progress, 'sent_emails': sent_emails})
+
+class ProductList(ListView):
+    model = Product
+    paginate_by = 30
+    ordering = ['-id']
