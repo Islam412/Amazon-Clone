@@ -48,3 +48,9 @@ def add_to_cart(request):
     cart_detail.save()
 
     return redirect (f'/products/{product.slug}')
+
+
+def remove_from_cart(request,id):
+    cart_detail = CartDetails.objects.get(id=id)
+    cart_detail.delete()
+    return redirect('/products/')
