@@ -1,7 +1,6 @@
 from .models import Profile, Phone, Address, ADDRESS_TYPE, CreditCard
 
 def get_profile_data(request):
-    # التحقق من تسجيل دخول المستخدم
     if not request.user.is_authenticated:
         return {
             'profile_data': None,
@@ -13,22 +12,18 @@ def get_profile_data(request):
             'credit_cards': [],
         }
 
-    # الحصول على بيانات الملف الشخصي
     profile_data = Profile.objects.filter(user=request.user).first()
 
     if profile_data:
-        # جلب أرقام الهواتف
+
         phone_numbers = Phone.objects.filter(user=request.user)
 
-        # تصنيف أرقام الهواتف حسب النوع
         primary_phone = phone_numbers.filter(type='Primary').first()
         secondary_phone = phone_numbers.filter(type='Secondary').first()
         third_phone = phone_numbers.filter(type='Third').first()
 
-        # جلب العناوين المرتبطة بالمستخدم
         addresses = Address.objects.filter(user=request.user)
 
-        # جلب بطاقات الائتمان
         credit_cards = CreditCard.objects.filter(user=request.user)
 
         context = {
