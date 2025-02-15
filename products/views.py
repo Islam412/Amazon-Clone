@@ -129,3 +129,26 @@ def product_filter_by_flag(request):
         products = products.filter(flag__in=tags)
 
     return render(request, 'products/product_filter_by_tag.html', {'products': products})
+
+
+
+
+def add_review(request,slug):
+    product = Product.objects.get(slug=slug)
+
+    rate = request.POST['rate']  # rate = request.POST.get('rate') , request.GET['rate'] = request.POST.get('rate)
+    review = request.POST['review']
+
+    Review.objects.create(
+        product=product,
+        rate=rate,
+        review=review,
+        user=request.user,
+    )
+
+    # review
+    reviews = Review.objects.filter(product=product)
+    html = render_to_string('include/reviews_include.html',{'reviews':reviews , request:request})
+    return JsonResponse({'result': html})
+
+    # return redirect(f'/products/{product.slug}')
