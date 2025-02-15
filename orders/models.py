@@ -47,3 +47,10 @@ class CartDetails(models.Model):
 
     def __str__(self):
         return str(self.cart)
+
+
+
+def generate_code(length=10):
+    data = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    code = ''.join(random.choice(data) for _ in range(length))
+    return code
