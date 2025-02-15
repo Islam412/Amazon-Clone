@@ -56,6 +56,8 @@ def generate_code(length=10):
     return code
 
 
+
+
 ORDER_STATUS = [
     ('Recieved','Recieved'),
     ('Processed','Processed'),
@@ -85,6 +87,7 @@ class OrderDetails(models.Model):
 
     def __str__(self):
         return str(self.order)
+
 
 
 class Coupon(models.Model):
