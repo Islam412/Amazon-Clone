@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.timezone import now
+
 
 # Create your models here.
 
@@ -39,6 +41,9 @@ class FreeOffer(models.Model):
     title = models.CharField(max_length=225 , null=True , blank=True)
     description = models.TextField(max_length=1000 , null=True , blank=True)
     image = models.ImageField(upload_to='product_fee')
+    created_at = models.DateTimeField(default=now)
 
     def __str__(self):
         return self.title
+
+

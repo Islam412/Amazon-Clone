@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
 
 {% block css %}
     {% if LANGUAGE_CODE == 'en' %}
@@ -63,20 +66,20 @@
                                 <h1>free home delivery within 24 hours now.</h1>
                                 <p>Lorem ipsum dolor consectetur adipisicing elit modi consequatur eaque expedita porro necessitatibus eveniet voluptatum quis pariatur Laboriosam molestiae architecto excepturi</p>
                                 <div class="banner-btn">
-                                    <a class="btn btn-inline" href="shop-4column.html">
+                                    <a class="btn btn-inline" href="{% url 'products:product_list' %}">
                                         <i class="fas fa-shopping-basket"></i>
-                                        <span>shop now</span>
+                                        <span>{% translate "shop now" %}</span>
                                     </a>
-                                    <a class="btn btn-outline" href="offer.html">
+                                    <a class="btn btn-outline" href="{% url 'orders:coupon' %}">
                                         <i class="icofont-sale-discount"></i>
-                                        <span>get offer</span>
+                                        <span>{% translate "Get Offers" %}</span>
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6">
                             <div class="banner-img">
-                                <img src="{% static 'en/images/home/index/01.png' %}" alt="index">
+                                <img style="width: 580px; height: 520px;" src="{% static 'en/images/home/index/01.png' %}" alt="index">
                             </div>
                         </div>
                     </div>
@@ -95,13 +98,13 @@
                                 <h1>free home delivery within 24 hours now.</h1>
                                 <p>Lorem ipsum dolor consectetur adipisicing elit modi consequatur eaque expedita porro necessitatibus eveniet voluptatum quis pariatur Laboriosam molestiae architecto excepturi</p>
                                 <div class="banner-btn">
-                                    <a class="btn btn-inline" href="shop-4column.html">
+                                    <a class="btn btn-inline" href="{% url 'products:product_list' %}">
                                         <i class="fas fa-shopping-basket"></i>
-                                        <span>shop now</span>
+                                        <span>{% translate "shop now" %}</span>
                                     </a>
-                                    <a class="btn btn-outline" href="offer.html">
+                                    <a class="btn btn-outline" href="{% url 'orders:coupon' %}">
                                         <i class="icofont-sale-discount"></i>
-                                        <span>get offer</span>
+                                        <span>{% translate "Get Offers" %}</span>
                                     </a>
                                 </div>
                             </div>
