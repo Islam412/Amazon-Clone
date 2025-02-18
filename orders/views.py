@@ -16,7 +16,7 @@ import datetime
 import stripe
 
 
-from .models import Order , CartDetails , Cart , Coupon
+from .models import Order , CartDetails , Cart , Coupon , OrderDetails
 from products.models import Product
 from settings.models import DeliveryFee
 from utils.generate_code import generate_code
@@ -168,7 +168,30 @@ def process_payment(request):
 
 
 def payment_success(request):
-    return render(request,'orders/success.html')
+
+    cart = Cart.objects.get(user=request.user, status='InProgress')
+    cart_detail = CartDetails.objects.filter(cart=cart)
+
+    new_order = Order.objects.create(
+        user=request.user,
+        coupon=cart.coupon,
+        total_after_coupon=cart.total_after_coupon,
+    )
+
+    for item in cart_detail:
+        OrderDetails.objects.create(
+            order=new_order,
+            product=item.product,
+            quantity=item.quantity,
+            price=item.product.price,
+            total=round(item.quantity * item.product.price, 2),
+        )
+
+    cart.status = 'Completed'
+    cart.save()
+
+    return render(request, 'orders/success.html')
+
 
 
 def payment_failed(request):
