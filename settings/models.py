@@ -16,6 +16,11 @@ class Company(models.Model):
     ios_app = models.URLField(max_length=200, null=True, blank=True)
     call_us = models.CharField(max_length=255, null=True, blank=True)
     email_us = models.CharField(max_length=255, null=True, blank=True)
+    free_home_delivery = models.CharField(max_length=255, null=True, blank=True)
+    instant_return_policy = models.CharField(max_length=255, null=True, blank=True) 
+    support_system = models.CharField(max_length=255, null=True, blank=True)
+    secure_payment_way = models.CharField(max_length=255, null=True, blank=True)
+    android_ios_app = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.name
