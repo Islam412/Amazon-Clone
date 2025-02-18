@@ -63,11 +63,15 @@
                     <div class="row align-items-center">
                         <div class="col-md-6 col-lg-6">
                             <div class="banner-content">
-                                <h1>{{ offer_data.title }}.</h1>
-                                <p>{{ offer_data.description }}.</p>
-                                <em>{{ offer_data.created_at }}</em>
-                                <br>
-                                <br>
+                                {% if offer_data %}
+                                    <h1>{{ offer_data.title }}.</h1>
+                                    <p>{{ offer_data.description }}.</p>
+                                    <em>{{ offer_data.created_at }}</em>
+                                    <br>
+                                    <br>
+                                {% else %}
+                                    <br>
+                                {% endif %}
                                 <div class="banner-btn">
                                     <a class="btn btn-inline" href="{% url 'products:product_list' %}">
                                         <i class="fas fa-shopping-basket"></i>
@@ -80,11 +84,15 @@
                                 </div>
                             </div>
                         </div>
+                        {% if offer_data %}
                         <div class="col-md-6 col-lg-6">
                             <div class="banner-img">
                                 <img style="width: 580px; height: 520px;" src="{{ offer_data.image.url }}" alt="offer">
                             </div>
                         </div>
+                        {% else %}
+                            <br>
+                        {% endif %}
                     </div>
                 </div>
             </div>
