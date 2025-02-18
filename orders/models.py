@@ -75,6 +75,9 @@ class Order(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def total_items(self):
+        return sum(detail.quantity for detail in self.order_details.all())
+
 
 
 class OrderDetails(models.Model):

@@ -73,7 +73,7 @@
                                                 </li>
                                                 <li>
                                                     <h6>Total Item</h6>
-                                                    <p>6 Items</p>
+                                                    <p>{{ object.total_items }} Items</p>
                                                 </li>
                                                 <li>
                                                     <h6>Order Time</h6>
@@ -91,48 +91,22 @@
                                                 <ul class="orderlist-details">
                                                     <li>
                                                         <h6>Sub Total</h6>
-                                                        <p>$10,864.00</p>
+                                                        <p>${{ sub_total }}</p>
                                                     </li>
                                                     <li>
-                                                        <h6>discount</h6>
-                                                        <p>$20.00</p>
+                                                        <h6>Discount</h6>
+                                                        <p>${{ coupon }}</p>
                                                     </li>
                                                     <li>
-                                                        <h6>delivery fee</h6>
-                                                        <p>$49.00</p>
+                                                        <h6>Delivery Fee</h6>
+                                                        <p>${{ delivery_fee }}</p>
                                                     </li>
                                                     <li>
                                                         <h6>Total<small>(Incl. VAT)</small></h6>
-                                                        <p>$10,874.00</p>
+                                                        <p>${{ cart_total }}</p>
                                                     </li>
                                                 </ul>
-
-
-                                                {% comment %} <li>
-                                                    <h6>Sub Total</h6>
-                                                    <p>${{ cart_data.cart_total }}</p>
-                                                </li>
-                                                <li>
-                                                    <h6>Discount</h6>
-                                                    {% if cart_data %}
-                                                        <p>${{ cart_data.discount_amount }}</p>
-                                                    {% else %}
-                                                        <p>$0.00</p>
-                                                    {% endif %}
-                                                </li>
-                                                <li>
-                                                    <h6>Delivery Fee</h6>
-                                                    <p>${{ fee.fee }}</p>
-                                                </li>
-                                                <li>
-                                                    <h6>Total<small>(Incl. VAT)</small></h6>
-                                                    {% if cart_data.total_after_coupon %}
-                                                        <p>${{ cart_data.total_after_coupon }}</p>
-                                                    {% else %}
-                                                        <p>${{ cart_data.cart_total }}</p>
-                                                    {% endif %}
-                                                </li>
-                                            </ul> {% endcomment %}
+                                                
                                         </div>
                                         
                                         
@@ -144,8 +118,8 @@
                                                     <br>
                                                     {% if address.notes %}
                                                     <em><strong>Notes:</strong> {{ address.notes }}</em>
-                                                    {% comment %} {% else %}
-                                                        <em>No notes provided</em>{% endcomment %}
+                                                    {% else %}
+                                                        <em>No notes provided</em>
                                                     {% endif %} 
                                                 {% endfor %}
                                             </div>
