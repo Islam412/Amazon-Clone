@@ -32,3 +32,13 @@ class DeliveryFee(models.Model):
 
     def __str__(self):
         return str(self.fee)
+
+
+
+class FeeOffer(models.Model):
+    title = models.CharField(max_length=225 , null=True , blank=True)
+    description = models.TextField(max_length=1000 , null=True , blank=True)
+    image = models.ImageField(upload_to='product_fee')
+
+    def __str__(self):
+        return self.title
