@@ -604,7 +604,7 @@
                             </div>
                             <div class="intro-content">
                                 <h5>{% translate "free home delivery" %}</h5>
-                                <p>{% translate "Lorem ipsum dolor sit amet adipisicing elit nobis." %}</p>
+                                <p>{{ company_data.free_home_delivery }}</p>
                             </div>
                         </div>
                     </div>
@@ -615,7 +615,7 @@
                             </div>
                             <div class="intro-content">
                                 <h5>{% translate "instant return policy" %}</h5>
-                                <p>{% translate "Lorem ipsum dolor sit amet adipisicing elit nobis." %}</p>
+                                <p>{{ company_data.instant_return_policy }}</p>
                             </div>
                         </div>
                     </div>
@@ -626,7 +626,7 @@
                             </div>
                             <div class="intro-content">
                                 <h5>{% translate "quick support system" %}</h5>
-                                <p>{% translate "Lorem ipsum dolor sit amet adipisicing elit nobis." %}</p>
+                                <p>{{ company_data.support_system }}</p>
                             </div>
                         </div>
                     </div>
@@ -637,7 +637,7 @@
                             </div>
                             <div class="intro-content">
                                 <h5>{% translate "secure payment way" %}</h5>
-                                <p>{% translate "Lorem ipsum dolor sit amet adipisicing elit nobis." %}</p>
+                                <p>{{ company_data.secure_payment_way }}</p>
                             </div>
                         </div>
                     </div>
@@ -713,7 +713,7 @@
                     <div class="col-sm-6 col-xl-3">
                         <div class="footer-widget">
                             <h3 class="footer-title">{% translate "Download App" %}</h3>
-                            <p class="footer-desc">{% translate "Lorem ipsum dolor sit amet tenetur dignissimos ipsum eligendi autem obcaecati minus ducimus totam reprehenderit exercitationem!" %}</p>
+                            <p class="footer-desc">{{ company_data.android_ios_app }}</p>
                             <div class="footer-app">
                                 <a href="{{ company_data.android_app }}"><img src="{% static 'en/images/apps/android.webp' %}" alt="google"></a>
                                 <a href="{{ company_data.ios_app }}"><img src="{% static 'en/images/apps/iOS.webp' %}" alt="app"></a>
