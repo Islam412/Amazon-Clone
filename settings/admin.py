@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Company , DeliveryFee , FeeOffer
+from .models import Company , DeliveryFee , FreeOffer
 
 # Register your models here.
 
 admin.site.register(Company)
 admin.site.register(DeliveryFee)
-admin.site.register(FeeOffer)
+admin.site.register(FreeOffer)

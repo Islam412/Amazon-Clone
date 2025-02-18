@@ -35,7 +35,7 @@ class DeliveryFee(models.Model):
 
 
 
-class FeeOffer(models.Model):
+class FreeOffer(models.Model):
     title = models.CharField(max_length=225 , null=True , blank=True)
     description = models.TextField(max_length=1000 , null=True , blank=True)
     image = models.ImageField(upload_to='product_fee')
