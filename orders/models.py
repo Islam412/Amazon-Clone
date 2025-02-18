@@ -90,6 +90,14 @@ class OrderDetails(models.Model):
     def __str__(self):
         return str(self.order)
 
+    def save(self, *args, **kwargs):
+        if self.product and not self.price:
+            self.price = self.product.price 
+
+        self.total = self.price * self.quantity
+        super().save(*args, **kwargs)
+
+
 
 
 class Coupon(models.Model):
