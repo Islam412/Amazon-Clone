@@ -122,6 +122,7 @@ TEMPLATES = [
 
                 # Custom context processors off company data from settings app(company_contexet_processor.py)
                 'settings.company_contexet_processor.get_company_data',
+                'settings.company_contexet_processor.get_offer_data',
 
                 # Create or get cart off user
                 'orders.cart_context_processor.get_or_create_cart',

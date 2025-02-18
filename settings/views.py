@@ -34,11 +34,3 @@ def contact(request):
 def need_help(request):
     return render(request, 'settings/need_help.html')
 
-
-
-def free_offer_list(request):
-    expiry_time = now() - timedelta(days=2)
-    FreeOffer.objects.filter(created_at__lte=expiry_time).delete()
-
-    offers = FreeOffer.objects.all()
-    return render(request, 'offers/free_offer_list.html', {'offers': offers})
