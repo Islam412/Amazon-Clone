@@ -30,7 +30,7 @@ class Company(models.Model):
 
 
 class DeliveryFee(models.Model):
-    fee = models.FloatField(default=50.0)
+    fee = models.FloatField()
     def __str__(self):
         return str(self.fee)
 
