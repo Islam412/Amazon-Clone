@@ -130,6 +130,10 @@ def checkout(request):
 
 def process_payment(request):
     cart = Cart.objects.get(user=request.user, status='InProgress')
+
+    if not cart:
+        return JsonResponse({'error': 'No active cart found'}, status=400)
+
     cart_detail = CartDetails.objects.filter(cart=cart)
     delivery_fee = DeliveryFee.objects.last().fee
 
