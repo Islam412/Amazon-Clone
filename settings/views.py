@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.db.models import Count
 from django.views.decorators.cache import cache_page
+from django.utils.timezone import now, timedelta
 
 
-from products.models import Product , Brand , Review
+from products.models import Product , Brand , Review 
+from .models import FreeOffer
 
 # Create your views here.
 # from django.contrib.auth.decorators import login_required
@@ -31,3 +33,12 @@ def contact(request):
 
 def need_help(request):
     return render(request, 'settings/need_help.html')
+
+
+
+def free_offer_list(request):
+    expiry_time = now() - timedelta(days=2)
+    FreeOffer.objects.filter(created_at__lte=expiry_time).delete()
+
+    offers = FreeOffer.objects.all()
+    return render(request, 'offers/free_offer_list.html', {'offers': offers})
