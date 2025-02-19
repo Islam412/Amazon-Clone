@@ -79,29 +79,13 @@
                                             
 
                                             <td class="table-shop">
-                                                <button class="product-add" title="Add to Cart">add to cart</button>
-                                                <br>
-                                                <button class="product-add" title="Add to Cart">add to cart</button>
-
-                                                <!-- <form action="{% url 'orders:add_to_cart' %}" method="post">
-                                                    {% csrf_token %}
-                                                    <input title="Quantity Number" type="text" name="quantity" value="1" 
-                                                        style="background-color: #119744; border: 2px solid #119744; border-radius: 10px; 
-                                                                padding: 3px; margin-bottom: 15px; 
-                                                                text-align: center; line-height: 50px; color: white;">
-                
-                                                    <input type="hidden" name="product_id" value="{{product.id}}">
-                
-                
-                
-                                                    <button type="submit" class="product-add" title="Add to Cart">
-                                                        <i class="fas fa-shopping-basket"></i>
-                                                        <span>add to cart</span>
-                                                    </button>
-                
-                
-                
-                                                </form> -->
+                                                
+                                                <input class="product-add" style="margin-bottom: 10px; " title="Quantity Number" type="text" name="quantity" value="1" >
+            
+                                                <button type="submit" class="product-add" title="Add to Cart">
+                                                    <i class="fas fa-shopping-basket"></i>
+                                                    <span>add to cart</span>
+                                                </button>
                                             </td>
                                             
                                             <td class="table-action">
@@ -111,29 +95,6 @@
                                             </td>
                                         </tr>
                                         {% endfor %}
-                                    
-
-                                    {% comment %} <tr>
-                                        <td class="table-serial"><h6>05</h6></td>
-                                        <td class="table-image"><img src="images/product/05.jpg" alt="product"></td>
-                                        <td class="table-name"><h6>product name</h6></td>
-                                        <td class="table-price"><h6>$34<small>/kilo</small></h6></td>
-                                        <td class="table-desc"><p>Lorem ipsum nobis eaque excepturi nisi eveniet...<a href="product-video.html">read more</a></p></td>
-                                        <td class="table-status"><h6 class="stock-out">stock out</h6></td>
-                                        <td class="table-shop">
-                                            <button class="product-add" title="Add to Cart">add to cart</button>
-                                            <div class="product-action">
-                                                <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                                                <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
-                                                <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
-                                            </div>
-                                        </td>
-                                        <td class="table-action">
-                                            <a class="view" href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#product-view"><i class="fas fa-eye"></i></a>
-                                            <a class="trash" href="#" title="Remove Wishlist"><i class="icofont-trash"></i></a>
-                                        </td>
-                                    </tr> {% endcomment %}
-
 
                                 </tbody>
                             </table>
