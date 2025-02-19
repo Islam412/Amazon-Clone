@@ -19,6 +19,7 @@ urlpatterns = [
     path('remove-from-checkout/<int:id>', remove_from_checkout, name='remove_from_checkout'),
     path('wishlist/', wishlist_view, name='wishlist'),
     path('wishlist/remove/<int:pk>/', remove_from_wishlist, name='remove_from_wishlist'),
+    path('wishlist/add/<int:product_id>/', add_to_wishlist, name='add_to_wishlist'),
 
     # api
     path('api/list/<str:username>' ,OrderListAPI.as_view(), name='OrderListAPI'),
