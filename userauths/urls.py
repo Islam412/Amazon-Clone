@@ -13,6 +13,7 @@ urlpatterns = [
     path('user/sign-out/', views.LogoutView.as_view(), name='sign-out'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('profile/edit/', views.ProfileUpdateView.as_view(), name='profile-edit'),
+    path('password-change/', views.ChangePasswordView.as_view(), name='password-change'),
     
     # api 
     path('api/<int:pk>/', api.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),
