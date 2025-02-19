@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import OrderListView, checkout , add_to_cart , remove_from_cart , remove_from_checkout , process_payment , payment_success , payment_failed , coupon , wishlist_view
+from .views import OrderListView, checkout , add_to_cart , remove_from_cart , remove_from_checkout , process_payment , payment_success , payment_failed , coupon , wishlist_view , remove_from_wishlist
 from .api import CartDetailCreateAPI , OrderListAPI , OrderDetailsAPI , CreateOrderAPI , ApplyCouponAPI
 
 
@@ -18,6 +18,7 @@ urlpatterns = [
     path('remove-from-cart/<int:id>', remove_from_cart, name='remove_from_cart'),
     path('remove-from-checkout/<int:id>', remove_from_checkout, name='remove_from_checkout'),
     path('wishlist/', wishlist_view, name='wishlist'),
+    path('wishlist/remove/<int:pk>/', remove_from_wishlist, name='remove_from_wishlist'),
 
     # api
     path('api/list/<str:username>' ,OrderListAPI.as_view(), name='OrderListAPI'),
