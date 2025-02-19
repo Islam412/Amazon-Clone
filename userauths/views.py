@@ -13,7 +13,7 @@ from django.contrib.auth.views import PasswordChangeView
 
 
 from userauths.models import User , Profile
-from userauths.forms import UserRegisterForm , ProfileForm
+from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm
 from userauths.serializers import UserSerializer , ProfileSerializer 
 
 
@@ -126,7 +126,8 @@ class ProfileUpdateView(UpdateView):
 
 
 class ChangePasswordView(PasswordChangeView):
-    template_name = 'userauths/change_password.html'
+    template_name = 'userauths/change-password.html'
+    form_class = CustomPasswordChangeForm
     success_url = reverse_lazy('userauths:profile')
 
     def form_valid(self, form):
