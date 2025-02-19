@@ -106,9 +106,9 @@
                             </div>
                             
                             <div class="details-action-group">
-                                <a class="details-wish wish" href="#" title="Add Your Wishlist">
+                                <a class="details-wish wish" href="{% url 'orders:add_to_wishlist' product.id %}" title="Add Your Wishlist">
                                     <i class="icofont-heart"></i>
-                                    <span>add to wish</span>
+                                    <span>Add to Wish</span>
                                 </a>
                             </div>
                         </div>

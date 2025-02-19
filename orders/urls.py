@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import OrderListView, checkout , add_to_cart , remove_from_cart , remove_from_checkout , process_payment , payment_success , payment_failed , coupon , wishlist_view , remove_from_wishlist
+from .views import OrderListView, checkout , add_to_cart , remove_from_cart , remove_from_checkout , process_payment , payment_success , payment_failed , coupon , wishlist_view , remove_from_wishlist , add_to_wishlist
 from .api import CartDetailCreateAPI , OrderListAPI , OrderDetailsAPI , CreateOrderAPI , ApplyCouponAPI
 
 

@@ -237,4 +237,4 @@ def add_to_wishlist(request, product_id):
     if not created:
         wishlist_item.delete()
     
-    return redirect('orders:wishlist_view')
+    return redirect('orders:wishlist')
