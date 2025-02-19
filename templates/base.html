@@ -174,10 +174,11 @@
                     
         
                     <div class="header-widget-group">
-                        <a href="wishlist.html" class="header-widget" title="Wishlist">
+                        <a href="{% url 'orders:wishlist' %}" class="header-widget" title="Wishlist">
                             <i class="fas fa-heart"></i>
-                            <sup>0</sup>
+                            <sup>{{ request.user.wishlist_user.count }}</sup>
                         </a>
+                        
                         <button class="header-widget header-cart" title="Cartlist">
                             <i class="fas fa-shopping-basket"></i>
                             <sup>{{cart_detail_data|length}}</sup>

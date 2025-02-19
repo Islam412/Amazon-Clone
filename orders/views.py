@@ -214,6 +214,6 @@ def wishlist_view(request):
         context = {
             'wishlist_items': wishlist_items,
         }
-        return render(request, 'wishlist.html', context)
+        return render(request, 'orders/wishlist.html', context)
     else:
-        return redirect('sign-in')
+        return redirect('userauths:sign-in')
