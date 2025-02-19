@@ -226,4 +226,4 @@ def remove_from_wishlist(request, pk):
         wishlist_item = get_object_or_404(Wishlist, pk=pk, user=request.user)
         wishlist_item.delete()
         return redirect('orders:wishlist')
-    return redirect('userauths:sign-in'))
+    return redirect('userauths:sign-in')

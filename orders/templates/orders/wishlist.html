@@ -46,6 +46,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">description</th>
+                                        <th scope="col">quantity</th>
                                         <th scope="col">status</th>
                                         <th scope="col">shopping</th>
                                         <th scope="col">action</th>
@@ -66,6 +67,9 @@
                                                 <p>{{ item.product.descripition|truncatechars:50 }}</p>
                                             </td>
                                             <td class="table-status">
+                                                <h6>{{ item.product.quantity }}</h6>
+                                            </td>
+                                            <td class="table-status">
                                                 {% if item.product.quantity > 0 %}
                                                     <h6 class="stock-in">In Stock</h6>
                                                 {% else %}
@@ -73,15 +77,18 @@
                                                 {% endif %}
                                             </td>
                                             
+
                                             <td class="table-shop">
+                                                <button class="product-add" title="Add to Cart">add to cart</button>
+                                                <br>
                                                 <button class="product-add" title="Add to Cart">add to cart</button>
                                             </td>
                                             
-                                            {% comment %} <td class="table-action">
-                                                <a class="trash" href="{% url 'remove_from_wishlist' item.id %}" title="Remove from Wishlist">
+                                            <td class="table-action">
+                                                <a class="trash" href="{% url 'orders:remove_from_wishlist' item.id %}" title="Remove from Wishlist">
                                                     <i class="icofont-trash"></i>
                                                 </a>
-                                            </td> {% endcomment %}
+                                            </td>
                                         </tr>
                                         {% endfor %}
                                     
