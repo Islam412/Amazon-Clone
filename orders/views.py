@@ -9,7 +9,6 @@ from django.conf import settings
 from django.views.generic.detail import DetailView
 
 
-
 import datetime
 import stripe
 
@@ -227,3 +226,15 @@ def remove_from_wishlist(request, pk):
         wishlist_item.delete()
         return redirect('orders:wishlist')
     return redirect('userauths:sign-in')
+
+
+
+@login_required
+def add_to_wishlist(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    wishlist_item, created = Wishlist.objects.get_or_create(user=request.user, product=product)
+    
+    if not created:
+        wishlist_item.delete()
+    
+    return redirect('orders:wishlist_view')
