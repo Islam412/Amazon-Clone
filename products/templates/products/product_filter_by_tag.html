@@ -36,9 +36,7 @@
                     <div class="product-label">
                         <label class="label-text new">{{ product.flag }}</label>
                     </div>
-                    <button class="product-wish wish">
-                        <i class="fas fa-heart"></i>
-                    </button>
+
                     <a class="product-image" href="{% url 'products:product_detail' product.slug %}">
                         <img src="{{ product.image.url }}" style="width: 450px; height: 300px;" alt="product">
                     </a>
