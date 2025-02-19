@@ -208,6 +208,7 @@ def coupon(request):
     return render(request,'orders/coupon.html',context)
 
 
+
 def wishlist_view(request):
     if request.user.is_authenticated:
         wishlist_items = Wishlist.objects.filter(user=request.user)
@@ -217,3 +218,12 @@ def wishlist_view(request):
         return render(request, 'orders/wishlist.html', context)
     else:
         return redirect('userauths:sign-in')
+
+
+
+def remove_from_wishlist(request, pk):
+    if request.user.is_authenticated:
+        wishlist_item = get_object_or_404(Wishlist, pk=pk, user=request.user)
+        wishlist_item.delete()
+        return redirect('orders:wishlist')
+    return redirect('userauths:sign-in'))
