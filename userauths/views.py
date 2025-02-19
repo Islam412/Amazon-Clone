@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.views import PasswordChangeView
 
 
 
@@ -121,3 +122,17 @@ class ProfileUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('userauths:profile')
     
+
+
+
+class ChangePasswordView(PasswordChangeView):
+    template_name = 'userauths/change_password.html'
+    success_url = reverse_lazy('userauths:profile')
+
+    def form_valid(self, form):
+        messages.success(self.request, "Your password was successfully updated!")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "There was an error updating your password. Please try again.")
+        return super().form_invalid(form)
