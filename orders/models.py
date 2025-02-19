@@ -116,3 +116,13 @@ class Coupon(models.Model):
        week = datetime.timedelta(days=7)
        self.end_date = self.start_date + week
        super(Coupon, self).save(*args, **kwargs)  # call the real save method
+
+
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, related_name='wishlist_user', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='wishlist_product', on_delete=models.CASCADE)
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} - {self.product}"
