@@ -1,18 +1,16 @@
-# from .models import Cart, CartDetails
 
-# def get_or_create_cart(request):
-#     if request.user.is_authenticated:
-#         cart, created = Cart.objects.get_or_create(user=request.user, status='InProgress')
-#         if not created:
-#             cart_detail = CartDetails.objects.filter(cart=cart)  # Renamed cart_detail to cart_detail_data
-#             return {'cart_data': cart, 'cart_detail_data': cart_detail}  # Renamed cart_detail to cart_detail_data
-#         return {'cart_data': cart}
-#     else:
-#         return {}
-
-
-from .models import Cart, CartDetails
+from .models import Cart, CartDetails , Wishlist
 from settings.models import DeliveryFee
+
+
+def get_wishlist_items(request):
+    if request.user.is_authenticated:
+        wishlist_items = Wishlist.objects.filter(user=request.user)
+        return {
+            'wishlist_items': wishlist_items,
+        }
+    return {}
+
 
 def get_or_create_cart(request):
     if request.user.is_authenticated:
@@ -38,4 +36,19 @@ def get_or_create_cart(request):
         }
 
     return {}
+
+
+
+
+# from .models import Cart, CartDetails
+
+# def get_or_create_cart(request):
+#     if request.user.is_authenticated:
+#         cart, created = Cart.objects.get_or_create(user=request.user, status='InProgress')
+#         if not created:
+#             cart_detail = CartDetails.objects.filter(cart=cart)  # Renamed cart_detail to cart_detail_data
+#             return {'cart_data': cart, 'cart_detail_data': cart_detail}  # Renamed cart_detail to cart_detail_data
+#         return {'cart_data': cart}
+#     else:
+#         return {}
 

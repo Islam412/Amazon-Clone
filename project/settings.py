@@ -126,7 +126,8 @@ TEMPLATES = [
 
                 # Create or get cart off user
                 'orders.cart_context_processor.get_or_create_cart',
-                
+                # Create or get wish list off user
+                'orders.cart_context_processor.get_wishlist_items',
                 # Create or get profile data off user
                 'userauths.profile_contexet_processor.get_profile_data',
             ],
