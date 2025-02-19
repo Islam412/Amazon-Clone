@@ -1,9 +1,7 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render , redirect , get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required # login required for functions
 from django.contrib.auth.mixins import LoginRequiredMixin # login required for class based views
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.http import JsonResponse
 from django.template.loader import render_to_string
@@ -16,7 +14,7 @@ import datetime
 import stripe
 
 
-from .models import Order , CartDetails , Cart , Coupon , OrderDetails
+from .models import Order , CartDetails , Cart , Coupon , OrderDetails , Wishlist
 from products.models import Product
 from settings.models import DeliveryFee
 from utils.generate_code import generate_code
@@ -208,3 +206,14 @@ def coupon(request):
         'coupon': coupon,
     }
     return render(request,'orders/coupon.html',context)
+
+
+def wishlist_view(request):
+    if request.user.is_authenticated:
+        wishlist_items = Wishlist.objects.filter(user=request.user)
+        context = {
+            'wishlist_items': wishlist_items,
+        }
+        return render(request, 'wishlist.html', context)
+    else:
+        return redirect('sign-in')
