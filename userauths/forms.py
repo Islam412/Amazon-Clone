@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 
-from userauths.models import User , Profile
+from userauths.models import User , Profile , Address , Phone
 
 
 
@@ -65,31 +65,33 @@ class ProfileForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Last Name'})
     )
-    email = forms.EmailField(
+    username = forms.CharField(
+        max_length=255,
         required=True,
-        widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'})
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'})
     )
+
 
     class Meta:
         model = Profile
-        fields = ['cover_images', 'phone', 'address']
+        fields = ['cover_images']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # استدعاء بيانات المستخدم المرتبطة بالبروفايل
         self.fields['first_name'].initial = self.instance.user.first_name
         self.fields['last_name'].initial = self.instance.user.last_name
-        self.fields['email'].initial = self.instance.user.email
+        self.fields['username'].initial = self.instance.user.username
 
     def save(self, commit=True):
         profile = super().save(commit=False)
         user = profile.user
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        user.email = self.cleaned_data['email']
+        user.username = self.cleaned_data['username']
 
         if commit:
             user.save()
             profile.save()
 
         return profile
+

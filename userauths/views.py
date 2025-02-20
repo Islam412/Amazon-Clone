@@ -12,7 +12,7 @@ from django.contrib.auth.views import PasswordChangeView
 
 
 
-from userauths.models import User , Profile
+from userauths.models import User , Profile , Address , Phone
 from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm
 from userauths.serializers import UserSerializer , ProfileSerializer 
 
