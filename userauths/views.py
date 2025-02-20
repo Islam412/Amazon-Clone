@@ -119,9 +119,13 @@ class ProfileUpdateView(UpdateView):
     def get_object(self, queryset=None):
         return get_object_or_404(Profile, user=self.request.user)
 
+    def form_valid(self, form):
+        messages.success(self.request, "Your profile has been updated successfully.")
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse_lazy('userauths:profile')
-    
+
 
 
 
