@@ -20,6 +20,7 @@ urlpatterns = [
     path('phone/delete/<int:pk>/', views.delete_phone, name='phone_delete'),
     path('phone/delete/checkout/<int:pk>/', views.delete_phone_checkout, name='phone_delete_checkout'),
     path('phone/create/checkout/', views.PhoneCreateCheckoutView.as_view(), name='phone_create_checkout'),
+    path('address/edit/<int:pk>/', views.AddressUpdateView.as_view(), name='address_edit'),
 
     # api 
     path('api/<int:pk>/', api.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),
