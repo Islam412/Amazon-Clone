@@ -199,7 +199,24 @@ def delete_phone(request, pk):
     if request.user.is_authenticated and request.method == "POST":
         phone = get_object_or_404(Phone, pk=pk, user=request.user)
         phone.delete()
-        print("✅ Phone deleted successfully!")  
         return redirect('userauths:profile')
 
     return redirect('userauths:sign-in')
+
+
+class PhoneUpdateCheckoutView(LoginRequiredMixin, UpdateView):
+    model = Phone
+    form_class = PhoneUpdateForm
+    template_name = 'userauths/phone_update.html'
+    context_object_name = 'phone'
+
+    def get_object(self, queryset=None):
+        phone_id = self.kwargs.get('pk')
+        return get_object_or_404(Phone, id=phone_id, user=self.request.user)
+
+    def form_valid(self, form):
+        messages.success(self.request, "Your phone number has been updated successfully.")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('orders:checkout')
