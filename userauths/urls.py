@@ -18,7 +18,6 @@ urlpatterns = [
     path('phone/create/', views.PhoneCreateView.as_view(), name='phone_create'),
     path('phone/delete/<int:pk>/', views.delete_phone, name='phone_delete'),
 
-    
     # api 
     path('api/<int:pk>/', api.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),
     path('api/', api.UserListAPIView.as_view(), name='user_api_list'),

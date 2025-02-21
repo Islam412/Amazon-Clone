@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.views import PasswordChangeView
-
+from django.http import HttpResponse
 
 
 from userauths.models import User , Profile , Address , Phone
@@ -195,8 +195,13 @@ class PhoneCreateView(LoginRequiredMixin, FormView):
 
 
 def delete_phone(request, pk):
-    if request.user.is_authenticated:
-        phone = get_object_or_404(Phoneone, pk=pk, user=request.user)
+    print(f"🔍 Received request to delete phone with ID: {pk}")  # تتبع الطلب في التيرمنال
+
+    if request.user.is_authenticated and request.method == "POST":
+        phone = get_object_or_404(Phone, pk=pk, user=request.user)
         phone.delete()
+        print("✅ Phone deleted successfully!")  
         return redirect('userauths:profile')
+
+    print("❌ Request not authorized or not POST")
     return redirect('userauths:sign-in')
