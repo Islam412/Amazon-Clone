@@ -203,7 +203,10 @@
                                                         </li>
                                                     
                                                         <li>
-                                                            <a href=""></a><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
+                                                            <form action="{% url 'userauths:phone_delete_checkout' primary_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                            </form>
                                                         </li>
                                                     {% endif %}
                                                 </ul>
@@ -225,10 +228,13 @@
                                                                 <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
                                                             </a>
                                                         </li>
+                                                        <li>
+                                                            <form action="{% url 'userauths:phone_delete_checkout' secondary_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                            </form>
+                                                        </li>
                                                     {% endif %}
-                                                    <li>
-                                                        <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -248,10 +254,13 @@
                                                                 <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
                                                             </a>
                                                         </li>
+                                                        <li>
+                                                            <form action="{% url 'userauths:phone_delete_checkout' third_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                            </form>
+                                                        </li>
                                                     {% endif %}
-                                                    <li>
-                                                        <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -292,9 +301,12 @@
                                                     <li>
                                                         <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit-{{ address.id }}"></button>
                                                     </li>
-                                                    <li>
-                                                        <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                                    </li>
+                                                    {% comment %} <li>
+                                                        <form action="{% url 'userauths:phone_delete' phone.id %}" method="POST" style="display:inline;">
+                                                            {% csrf_token %}
+                                                            <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                        </form>
+                                                    </li> {% endcomment %}
                                                 </ul>
                                             </div>
                                         </div>
