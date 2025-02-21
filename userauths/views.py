@@ -191,3 +191,12 @@ class PhoneCreateView(LoginRequiredMixin, FormView):
         phone.save()
         messages.success(self.request, "Your phone number has been added successfully.")
         return super().form_valid(form)
+
+
+
+def delete_phone(request, pk):
+    if request.user.is_authenticated:
+        phone = get_object_or_404(Phoneone, pk=pk, user=request.user)
+        phone.delete()
+        return redirect('userauths:profile')
+    return redirect('userauths:sign-in')
