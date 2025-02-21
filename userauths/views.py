@@ -265,3 +265,16 @@ class AddressUpdateView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('userauths:profile')
 
 
+
+class AddressUpdateCheckoutView(LoginRequiredMixin, UpdateView):
+    model = Address
+    form_class = AddressUpdateForm
+    template_name = 'userauths/address_update.html'
+    context_object_name = 'address'
+
+    def get_object(self, queryset=None):
+        address_id = self.kwargs.get('pk')
+        return get_object_or_404(Address, id=address_id, user=self.request.user)
+
+    def get_success_url(self):
+        return reverse_lazy('orders:checkout')
