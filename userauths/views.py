@@ -164,3 +164,14 @@ class PhoneUpdateView(LoginRequiredMixin, UpdateView):
 
 
 
+class PhoneCreateView(LoginRequiredMixin, FormView):
+    form_class = PhoneUpdateForm
+    template_name = 'userauths/phone_create.html'
+    success_url = reverse_lazy('userauths:profile')
+
+    def form_valid(self, form):
+        phone = form.save(commit=False)
+        phone.user = self.request.user
+        phone.save()
+        messages.success(self.request, "Your phone number has been added successfully.")
+        return super().form_valid(form)
