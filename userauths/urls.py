@@ -14,6 +14,8 @@ urlpatterns = [
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('profile/edit/', views.ProfileUpdateView.as_view(), name='profile-edit'),
     path('password-change/', views.ChangePasswordView.as_view(), name='password_change'),
+    path('phone/edit/', views.PhoneUpdateView.as_view(), name='phone-edit'),
+
     
     # api 
     path('api/<int:pk>/', api.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),

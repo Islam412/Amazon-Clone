@@ -13,7 +13,7 @@ from django.contrib.auth.views import PasswordChangeView
 
 
 from userauths.models import User , Profile , Address , Phone
-from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm
+from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm
 from userauths.serializers import UserSerializer , ProfileSerializer 
 
 
@@ -141,3 +141,22 @@ class ChangePasswordView(PasswordChangeView):
     def form_invalid(self, form):
         messages.error(self.request, "There was an error updating your password. Please try again.")
         return super().form_invalid(form)
+
+
+
+
+class PhoneUpdateView(LoginRequiredMixin, UpdateView):
+    model = Phone
+    form_class = PhoneUpdateForm
+    template_name = 'userauths/phone_update.html'
+    context_object_name = 'phone'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Phone, user=self.request.user)
+
+    def form_valid(self, form):
+        messages.success(self.request, "Your phone number has been updated successfully.")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('userauths:profile')
