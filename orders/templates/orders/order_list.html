@@ -85,7 +85,7 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <div class="col-lg-4">
+                                        {% comment %} <div class="col-lg-4">
                                             <ul class="orderlist-details">
 
                                                 <ul class="orderlist-details">
@@ -107,8 +107,35 @@
                                                     </li>
                                                 </ul>
                                                 
-                                        </div>
+                                        </div> {% endcomment %}
                                         
+
+
+
+
+                                        <div class="col-lg-3">
+                                            <div class="orderlist-deliver">
+                                                <h6>Phone location</h6>
+                                                <p>Primary Phone</p>
+                                                {% if primary_phone %}
+                                                    <p>{{ primary_phone.phone }}</p>
+                                                {% else %}
+                                                    <p>No Primary Phone</p>
+                                                {% endif %}
+
+                                                <p>Secondary Phone</p>
+                                                {% if secondary_phone %}
+                                                    <p>{{ secondary_phone.phone }}</p>
+                                                {% else %}
+                                                    <p>No Secondary Phone</p>
+                                                {% endif %}
+                                            </div>
+                                            
+                                        </div>
+
+
+
+
                                         
                                         <div class="col-lg-3">
                                             <div class="orderlist-deliver">
