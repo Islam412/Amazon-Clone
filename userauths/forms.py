@@ -113,3 +113,22 @@ class PhoneUpdateForm(forms.ModelForm):
         if not phone.isdigit():
             raise forms.ValidationError("Phone number must be numeric.")
         return phone
+
+
+
+class AddressUpdateForm(forms.ModelForm):
+    address = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'})
+    )
+
+    class Meta:
+        model = Address
+        fields = ['type' , 'address' , 'type']
+
+    def clean_address(self):
+        address = self.cleaned_data['address']
+        if not address.isdigit():
+            raise forms.ValidationError("Address number must be numeric.")
+        return address

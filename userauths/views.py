@@ -13,7 +13,7 @@ from django.http import HttpResponse
 
 
 from userauths.models import User , Profile , Address , Phone
-from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm
+from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm , AddressUpdateForm
 from userauths.serializers import UserSerializer , ProfileSerializer 
 
 
