@@ -118,17 +118,14 @@ class PhoneUpdateForm(forms.ModelForm):
 
 class AddressUpdateForm(forms.ModelForm):
     address = forms.CharField(
-        max_length=30,
-        required=True,
-        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'})
+        widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter your address', 'rows': 3}),
+        required=True
     )
 
     class Meta:
         model = Address
-        fields = ['type' , 'address' , 'type']
-
-    def clean_address(self):
-        address = self.cleaned_data['address']
-        if not address.isdigit():
-            raise forms.ValidationError("Address number must be numeric.")
-        return address
+        fields = ['type', 'address', 'notes']
+        widgets = {
+            'type': forms.Select(attrs={'class': 'form-control'}),
+            'notes': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Additional notes', 'rows': 2}),
+        }

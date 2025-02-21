@@ -259,24 +259,9 @@ class AddressUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_object(self, queryset=None):
         address_id = self.kwargs.get('pk')
-        return get_object_or_404(Phone, id=address_id, user=self.request.user)
-
-    def form_valid(self, form):
-        messages.success(self.request, "Your phone number has been updated successfully.")
-        return super().form_valid(form)
+        return get_object_or_404(Address, id=address_id, user=self.request.user)
 
     def get_success_url(self):
         return reverse_lazy('userauths:profile')
 
 
-class AddressCreateView(LoginRequiredMixin, FormView):
-    form_class = AddressUpdateForm
-    template_name = 'userauths/address_update.html'
-    success_url = reverse_lazy('userauths:profile')
-
-    def form_valid(self, form):
-        phone = form.save(commit=False)
-        phone.user = self.request.user
-        phone.save()
-        messages.success(self.request, "Your phone number has been added successfully.")
-        return super().form_valid(form)

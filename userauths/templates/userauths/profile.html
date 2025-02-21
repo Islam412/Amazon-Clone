@@ -115,7 +115,7 @@
                         <div class="account-card">
                             <div class="account-title">
                                 <h4>delivery address</h4>
-                                <button data-bs-toggle="modal" data-bs-target="#address-add">add address</button>
+                                {% comment %} <a href="{% url '#' %}"><button data-bs-toggle="modal" data-bs-target="#address-add">add address</button></a> {% endcomment %}
                             </div>
                             <div class="account-content">
                                 <div class="row">
@@ -131,7 +131,7 @@
                                                     <em>No notes provided</em>
                                                 {% endif %}
                                                 <ul class="user-action">
-                                                    <li><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit"></button></li>
+                                                    <li><a href="{% url 'userauths:address_edit' address.pk %}"><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit"></button></a></li>
                                                     <li><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button></li>
                                                 </ul>
                                             </div>
