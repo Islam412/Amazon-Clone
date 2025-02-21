@@ -195,7 +195,6 @@ class PhoneCreateView(LoginRequiredMixin, FormView):
 
 
 def delete_phone(request, pk):
-    print(f"🔍 Received request to delete phone with ID: {pk}")  # تتبع الطلب في التيرمنال
 
     if request.user.is_authenticated and request.method == "POST":
         phone = get_object_or_404(Phone, pk=pk, user=request.user)
@@ -203,5 +202,4 @@ def delete_phone(request, pk):
         print("✅ Phone deleted successfully!")  
         return redirect('userauths:profile')
 
-    print("❌ Request not authorized or not POST")
     return redirect('userauths:sign-in')
