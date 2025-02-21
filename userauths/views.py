@@ -232,3 +232,17 @@ def delete_phone_checkout(request, pk):
         return redirect('orders:checkout')
 
     return redirect('userauths:sign-in')
+
+
+
+class PhoneCreateCheckoutView(LoginRequiredMixin, FormView):
+    form_class = PhoneUpdateForm
+    template_name = 'userauths/phone_create.html'
+    success_url = reverse_lazy('orders:checkout')
+
+    def form_valid(self, form):
+        phone = form.save(commit=False)
+        phone.user = self.request.user
+        phone.save()
+        messages.success(self.request, "Your phone number has been added successfully.")
+        return super().form_valid(form)
