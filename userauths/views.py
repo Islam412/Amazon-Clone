@@ -144,6 +144,23 @@ class ChangePasswordView(PasswordChangeView):
 
 
 
+# for one numper
+# class PhoneUpdateView(LoginRequiredMixin, UpdateView):
+#     model = Phone
+#     form_class = PhoneUpdateForm
+#     template_name = 'userauths/phone_update.html'
+#     context_object_name = 'phone'
+
+#     def get_object(self, queryset=None):
+#         return get_object_or_404(Phone, user=self.request.user)
+
+#     def form_valid(self, form):
+#         messages.success(self.request, "Your phone number has been updated successfully.")
+#         return super().form_valid(form)
+
+#     def get_success_url(self):
+#         return reverse_lazy('userauths:profile')
+
 
 class PhoneUpdateView(LoginRequiredMixin, UpdateView):
     model = Phone
@@ -152,7 +169,8 @@ class PhoneUpdateView(LoginRequiredMixin, UpdateView):
     context_object_name = 'phone'
 
     def get_object(self, queryset=None):
-        return get_object_or_404(Phone, user=self.request.user)
+        phone_id = self.kwargs.get('pk')
+        return get_object_or_404(Phone, id=phone_id, user=self.request.user)
 
     def form_valid(self, form):
         messages.success(self.request, "Your phone number has been updated successfully.")
@@ -160,8 +178,6 @@ class PhoneUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('userauths:profile')
-
-
 
 
 class PhoneCreateView(LoginRequiredMixin, FormView):
