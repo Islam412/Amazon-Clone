@@ -106,7 +106,7 @@ class PhoneUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Phone
-        fields = ['phone', 'type']
+        fields = ['type' , 'phone']
 
     def clean_phone(self):
         phone = self.cleaned_data['phone']

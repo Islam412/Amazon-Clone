@@ -93,7 +93,7 @@
                                                 <p>{{ phone.phone }}</p>
                                                 <ul>
                                                     <li>
-                                                        <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
+                                                        <a href="{% url 'userauths:phone-edit' %}"><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button></a>
                                                     </li>
                                                     <li>
                                                         <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
