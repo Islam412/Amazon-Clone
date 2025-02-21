@@ -278,3 +278,14 @@ class AddressUpdateCheckoutView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('orders:checkout')
+
+
+
+def delete_address(request, pk):
+
+    if request.user.is_authenticated and request.method == "POST":
+        phone = get_object_or_404(Address, pk=pk, user=request.user)
+        phone.delete()
+        return redirect('userauths:profile')
+
+    return redirect('userauths:sign-in')
