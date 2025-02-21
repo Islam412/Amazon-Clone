@@ -176,91 +176,97 @@
                             </div>
                         </div>
                     </div>
-                    {% comment %} <div class="col-lg-12">
-                        <div class="account-card">
-                            <div class="account-title">
-                                <h4>Delivery Schedule</h4>
-                            </div>
-                            <div class="account-content">
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card schedule active">
-                                            <h6>express</h6>
-                                            <p>90 min express delivery</p>
+
+
+                        <div class="col-lg-12">
+                            <div class="account-card">
+                                <div class="account-title">
+                                    <h4>contact number</h4>
+                                    <button data-bs-toggle="modal" data-bs-target="#contact-add">add contact</button>
+                                </div>
+                                <div class="account-content">
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-4 alert fade show">
+                                            <div class="profile-card contact">
+                                                <h6>Primary Phone</h6>
+                                                {% if primary_phone %}
+                                                    <p>{{ primary_phone.phone }}</p>
+                                                {% else %}
+                                                    <p>No Primary Phone</p>
+                                                {% endif %}
+                                                <ul>
+                                                    {% if primary_phone and primary_phone.id %}
+                                                        <li>
+                                                            <a href="{% url 'userauths:phone-edit' primary_phone.id %}">
+                                                                <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                    <li>
+                                                        <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card schedule">
-                                            <h6>Working Hours</h6>
-                                            <p>8.00 AM - 10.00 PM</p>
+                                        
+                                        <div class="col-md-6 col-lg-4 alert fade show">
+                                            <div class="profile-card contact">
+                                                <h6>Secondary Phone</h6>
+                                                {% if secondary_phone %}
+                                                    <p>{{ secondary_phone.phone }}</p>
+                                                {% else %}
+                                                    <p>No Secondary Phone</p>
+                                                {% endif %}
+                                                <ul>
+                                                    {% if secondary_phone and secondary_phone.id %}
+                                                        <li>
+                                                            <a href="{% url 'userauths:phone-edit' secondary_phone.id %}">
+                                                                <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                    <li>
+                                                        <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card schedule">
-                                            <h6>Next day</h6>
-                                            <p>Next day or Tomorrow</p>
+                                        
+                                        <div class="col-md-6 col-lg-4 alert fade show">
+                                            <div class="profile-card contact">
+                                                <h6>Third Phone</h6>
+                                                {% if third_phone %}
+                                                    <p>{{ third_phone.phone }}</p>
+                                                {% else %}
+                                                    <p>No Third Phone</p>
+                                                {% endif %}
+                                                <ul>
+                                                    {% if third_phone and third_phone.id %}
+                                                        <li>
+                                                            <a href="{% url 'userauths:phone-edit' third_phone.id %}">
+                                                                <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
+                                                            </a>
+                                                        </li>
+                                                    {% endif %}
+                                                    <li>
+                                                        <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
+                                        
+                                                  
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> {% endcomment %}
-                    <div class="col-lg-12">
-                        <div class="account-card">
-                            <div class="account-title">
-                                <h4>contact number</h4>
-                                <button data-bs-toggle="modal" data-bs-target="#contact-add">add contact</button>
-                            </div>
-                            <div class="account-content">
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card contact">
-                                            <h6>Primary Phone</h6>
-                                            <p>{{ primary_phone }}</p>
-                                            <ul>
-                                                <li>
-                                                    <a href="{% url 'userauths:phone-edit' %}"><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button></a>
-                                                </li>
-                                                {% comment %} <li>
-                                                    <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                                </li> {% endcomment %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card contact">
-                                            <h6>Secondary Phone</h6>
-                                            <p>{{ secondary_phone }}</p>
-                                            <ul>
-                                                <li>
-                                                    <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
-                                                </li>
-                                                <li>
-                                                    <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-md-6 col-lg-4 alert fade show">
-                                        <div class="profile-card contact">
-                                            <h6>Third Phone</h6>
-                                            <p>{{ third_phone }}</p>
-                                            <ul>
-                                                <li>
-                                                    <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
-                                                </li>
-                                                <li>
-                                                    <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                        </div>
+    
+
+
+
+
+
+
+
                     </div>
                     <div class="col-lg-12">
                         <div class="account-card">
