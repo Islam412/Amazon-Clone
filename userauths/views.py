@@ -221,3 +221,14 @@ class PhoneUpdateCheckoutView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('orders:checkout')
+
+
+
+def delete_phone_checkout(request, pk):
+
+    if request.user.is_authenticated and request.method == "POST":
+        phone = get_object_or_404(Phone, pk=pk, user=request.user)
+        phone.delete()
+        return redirect('orders:checkout'
+
+    return redirect('userauths:sign-in')
