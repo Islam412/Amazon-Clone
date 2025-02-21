@@ -21,6 +21,7 @@ urlpatterns = [
     path('phone/delete/checkout/<int:pk>/', views.delete_phone_checkout, name='phone_delete_checkout'),
     path('phone/create/checkout/', views.PhoneCreateCheckoutView.as_view(), name='phone_create_checkout'),
     path('address/edit/<int:pk>/', views.AddressUpdateView.as_view(), name='address_edit'),
+    path('address/edit/checkout/<int:pk>/', views.AddressUpdateCheckoutView.as_view(), name='address_edit_checkout'),
 
     # api 
     path('api/<int:pk>/', api.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),

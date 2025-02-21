@@ -288,7 +288,7 @@
                         <div class="account-card">
                             <div class="account-title">
                                 <h4>delivery address</h4>
-                                <button data-bs-toggle="modal" data-bs-target="#address-add">add address</button>
+                                <a href="home.html"><button data-bs-toggle="modal" data-bs-target="#address-add">add address</button></a>
                             </div>
                             <div class="account-content">
                                 <div class="row">
@@ -305,7 +305,7 @@
                                                 {% endif %}
                                                 <ul class="user-action">
                                                     <li>
-                                                        <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit-{{ address.id }}"></button>
+                                                        <a href="{% url 'userauths:address_edit_checkout' address.pk %}"><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit-{{ address.id }}"></button></a>
                                                     </li>
                                                     {% comment %} <li>
                                                         <form action="{% url 'userauths:phone_delete' phone.id %}" method="POST" style="display:inline;">
