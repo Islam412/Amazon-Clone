@@ -204,6 +204,7 @@ def delete_phone(request, pk):
     return redirect('userauths:sign-in')
 
 
+
 class PhoneUpdateCheckoutView(LoginRequiredMixin, UpdateView):
     model = Phone
     form_class = PhoneUpdateForm

@@ -182,7 +182,7 @@
                             <div class="account-card">
                                 <div class="account-title">
                                     <h4>contact number</h4>
-                                    <button data-bs-toggle="modal" data-bs-target="#contact-add">add contact</button>
+                                    <a href=""><button data-bs-toggle="modal" data-bs-target="#contact-add">add contact</button></a>
                                 </div>
                                 <div class="account-content">
                                     <div class="row">
@@ -197,14 +197,15 @@
                                                 <ul>
                                                     {% if primary_phone and primary_phone.id %}
                                                         <li>
-                                                            <a href="{% url 'userauths:phone-edit' primary_phone.id %}">
+                                                            <a href="{% url 'userauths:phone_edit_checkout' primary_phone.id %}">
                                                                 <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
                                                             </a>
                                                         </li>
+                                                    
+                                                        <li>
+                                                            <a href=""></a><button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
+                                                        </li>
                                                     {% endif %}
-                                                    <li>
-                                                        <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
-                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
