@@ -95,3 +95,21 @@ class ProfileForm(forms.ModelForm):
 
         return profile
 
+
+
+class PhoneUpdateForm(forms.ModelForm):
+    phone = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Phone Number'})
+    )
+
+    class Meta:
+        model = Phone
+        fields = ['phone', 'type']
+
+    def clean_phone(self):
+        phone = self.cleaned_data['phone']
+        if not phone.isdigit():
+            raise forms.ValidationError("Phone number must be numeric.")
+        return phone
