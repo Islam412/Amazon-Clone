@@ -298,3 +298,20 @@ def delete_address_checkout(request, pk):
     address = get_object_or_404(Address, pk=pk, user=request.user)
     address.delete()
     return redirect('orders:checkout')
+
+
+
+
+@login_required
+def add_address(request):
+    if request.method == "POST":
+        form = AddressUpdateForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user  
+            address.save()
+            return redirect('userauths:profile')
+    else:
+        form = AddressUpdateForm()
+
+    return render(request, 'userauths/add_address.html', {'form': form})
