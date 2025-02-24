@@ -283,19 +283,18 @@ class AddressUpdateCheckoutView(LoginRequiredMixin, UpdateView):
 
 
 
-# def delete_address(request, pk):
-
-#     if request.user.is_authenticated and request.method == "POST":
-#         address = get_object_or_404(Address, pk=pk, user=request.user)
-#         address.delete()
-#         return redirect('userauths:profile')
-
-#     return redirect('userauths:sign-in')
-
-
 @login_required
 @require_POST
 def delete_address(request, pk):
     address = get_object_or_404(Address, pk=pk, user=request.user)
     address.delete()
     return redirect('userauths:profile')
+
+
+
+@login_required
+@require_POST
+def delete_address_checkout(request, pk):
+    address = get_object_or_404(Address, pk=pk, user=request.user)
+    address.delete()
+    return redirect('orders:checkout')
