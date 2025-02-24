@@ -10,6 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponse
+from django.views.decorators.http import require_POST
+
 
 
 from userauths.models import User , Profile , Address , Phone
@@ -281,11 +283,19 @@ class AddressUpdateCheckoutView(LoginRequiredMixin, UpdateView):
 
 
 
+# def delete_address(request, pk):
+
+#     if request.user.is_authenticated and request.method == "POST":
+#         address = get_object_or_404(Address, pk=pk, user=request.user)
+#         address.delete()
+#         return redirect('userauths:profile')
+
+#     return redirect('userauths:sign-in')
+
+
+@login_required
+@require_POST
 def delete_address(request, pk):
-
-    if request.user.is_authenticated and request.method == "POST":
-        phone = get_object_or_404(Address, pk=pk, user=request.user)
-        phone.delete()
-        return redirect('userauths:profile')
-
-    return redirect('userauths:sign-in')
+    address = get_object_or_404(Address, pk=pk, user=request.user)
+    address.delete()
+    return redirect('userauths:profile')
