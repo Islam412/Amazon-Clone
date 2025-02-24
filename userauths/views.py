@@ -327,7 +327,7 @@ def add_address_checkout(request):
             address = form.save(commit=False)
             address.user = request.user  
             address.save()
-            return redirect('orders:checkout'))
+            return redirect('orders:checkout')
     else:
         form = AddressUpdateForm()
 
