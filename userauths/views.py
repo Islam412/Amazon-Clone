@@ -315,3 +315,20 @@ def add_address(request):
         form = AddressUpdateForm()
 
     return render(request, 'userauths/add_address.html', {'form': form})
+
+
+
+
+@login_required
+def add_address_checkout(request):
+    if request.method == "POST":
+        form = AddressUpdateForm(request.POST)
+        if form.is_valid():
+            address = form.save(commit=False)
+            address.user = request.user  
+            address.save()
+            return redirect('orders:checkout'))
+    else:
+        form = AddressUpdateForm()
+
+    return render(request, 'userauths/add_address.html', {'form': form})
