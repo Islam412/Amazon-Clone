@@ -23,6 +23,7 @@ urlpatterns = [
     path('address/edit/<int:pk>/', views.AddressUpdateView.as_view(), name='address_edit'),
     path('address/edit/checkout/<int:pk>/', views.AddressUpdateCheckoutView.as_view(), name='address_edit_checkout'),
     path('address/delete/<int:pk>/', views.delete_address, name='address_delete'),
+    path('address/delete/checkout/delete_address_checkout<int:pk>/', views.delete_address_checkout, name='address_delete_checkout'),
 
     # api 
     path('api/<int:pk>/', api.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),
