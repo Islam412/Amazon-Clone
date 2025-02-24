@@ -307,12 +307,12 @@
                                                     <li>
                                                         <a href="{% url 'userauths:address_edit_checkout' address.pk %}"><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit-{{ address.id }}"></button></a>
                                                     </li>
-                                                    {% comment %} <li>
-                                                        <form action="{% url 'userauths:phone_delete' phone.id %}" method="POST" style="display:inline;">
+                                                    <li>
+                                                        <form action="{% url 'userauths:address_delete_checkout' address.pk %}" method="POST" style="display: inline;">
                                                             {% csrf_token %}
                                                             <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
                                                         </form>
-                                                    </li> {% endcomment %}
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
