@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 
-from userauths.models import User , Profile , Address , Phone
+from userauths.models import User , Profile , Address , Phone , CreditCard
 
 
 
@@ -129,3 +129,33 @@ class AddressUpdateForm(forms.ModelForm):
             'type': forms.Select(attrs={'class': 'form-control'}),
             'notes': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Additional notes', 'rows': 2}),
         }
+
+
+
+
+
+class CreditCardForm(forms.ModelForm):
+    name = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Cardholder Name'}),
+        required=True
+    )
+    card_number = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Card Number'}),
+        required=True
+    )
+    country = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Country'}),
+        required=True
+    )
+    cvv = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'CVV', 'maxlength': '3'}),
+        required=True
+    )
+    expiration_date = forms.DateField(
+        widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        required=True
+    )
+
+    class Meta:
+        model = CreditCard
+        fields = ['name', 'card_number', 'country', 'cvv', 'expiration_date']
