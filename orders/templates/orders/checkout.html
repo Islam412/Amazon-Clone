@@ -198,6 +198,7 @@
                                                     {% if primary_phone and primary_phone.id %}
                                                         <li>
                                                             <form action="{% url 'userauths:phone_edit_checkout' primary_phone.id %}">
+                                                                {% csrf_token %}
                                                                 <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
                                                             </form>
                                                             <!-- <a href="{% url 'userauths:phone_edit_checkout' primary_phone.id %}">
@@ -226,7 +227,8 @@
                                                 <ul>
                                                     {% if secondary_phone and secondary_phone.id %}
                                                         <li>
-                                                            <form action="{% url 'userauths:phone-edit' secondary_phone.id %}" method="POST" style="display:inline;">
+                                                            <form action="{% url 'userauths:phone_edit_checkout' secondary_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
                                                                 <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
                                                             </form>
                                                             <!-- <a href="{% url 'userauths:phone-edit' secondary_phone.id %}">
@@ -254,7 +256,8 @@
                                                 <ul>
                                                     {% if third_phone and third_phone.id %}
                                                         <li>
-                                                            <form action="{% url 'userauths:phone-edit' third_phone.id %}" method="POST" style="display:inline;">
+                                                            <form action="{% url 'userauths:phone_edit_checkout' third_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
                                                             <!-- <a href="{% url 'userauths:phone-edit' third_phone.id %}"> -->
                                                                 <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
                                                             <!-- </a> -->
