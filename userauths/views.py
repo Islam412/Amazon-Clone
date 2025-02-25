@@ -347,3 +347,17 @@ def add_credit_card(request):
     else:
         form = CreditCardForm()
     return render(request, 'userauths/add_card.html', {'form': form})
+
+
+
+def add_credit_card_checkout(request):
+    if request.method == "POST":
+        form = CreditCardForm(request.POST)
+        if form.is_valid():
+            credit_card = form.save(commit=False)
+            credit_card.user = request.user
+            credit_card.save()
+            return redirect('orders:checkout')
+    else:
+        form = CreditCardForm()
+    return render(request, 'userauths/add_card.html', {'form': form})

@@ -27,6 +27,7 @@ urlpatterns = [
     path('address/add/', views.add_address, name='add_address'),
     path('add/address/checkout', views.add_address_checkout, name='add_address_checkout'),
     path('add-card/', views.add_credit_card, name='add_card'),
+    path('add-card/', views.add_credit_card_checkout, name='add_card_checkout'),
 
     # api 
     path('api/<int:pk>/', api.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),
