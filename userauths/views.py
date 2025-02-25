@@ -343,7 +343,7 @@ def add_credit_card(request):
             credit_card = form.save(commit=False)
             credit_card.user = request.user
             credit_card.save()
-            return redirect('profile')
+            return redirect('userauths:profile'))
     else:
         form = CreditCardForm()
     return render(request, 'add_card.html', {'form': form})
