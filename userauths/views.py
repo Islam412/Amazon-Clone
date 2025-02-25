@@ -14,7 +14,7 @@ from django.views.decorators.http import require_POST
 
 
 
-from userauths.models import User , Profile , Address , Phone
+from userauths.models import User , Profile , Address , Phone , CreditCard
 from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm , AddressUpdateForm , CreditCardForm
 from userauths.serializers import UserSerializer , ProfileSerializer 
 
@@ -332,3 +332,18 @@ def add_address_checkout(request):
         form = AddressUpdateForm()
 
     return render(request, 'userauths/add_address.html', {'form': form})
+
+
+
+
+def add_credit_card(request):
+    if request.method == "POST":
+        form = CreditCardForm(request.POST)
+        if form.is_valid():
+            credit_card = form.save(commit=False)
+            credit_card.user = request.user
+            credit_card.save()
+            return redirect('profile')
+    else:
+        form = CreditCardForm()
+    return render(request, 'add_card.html', {'form': form})
