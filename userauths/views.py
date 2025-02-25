@@ -346,4 +346,4 @@ def add_credit_card(request):
             return redirect('userauths:profile'))
     else:
         form = CreditCardForm()
-    return render(request, 'add_card.html', {'form': form})
+    return render(request, 'userauths/add_card.html', {'form': form})
