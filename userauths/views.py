@@ -361,3 +361,10 @@ def add_credit_card_checkout(request):
     else:
         form = CreditCardForm()
     return render(request, 'userauths/add_card.html', {'form': form})
+
+
+
+def delete_credit_card(request, card_id):
+    card = get_object_or_404(CreditCard, id=card_id, user=request.user)   
+    card.delete()
+    return redirect('userauths:profile')
