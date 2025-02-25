@@ -364,7 +364,9 @@ def add_credit_card_checkout(request):
 
 
 
-def delete_credit_card(request, card_id):
-    card = get_object_or_404(CreditCard, id=card_id, user=request.user)   
+@login_required
+@require_POST
+def delete_credit_card(request, pk):
+    card = get_object_or_404(CreditCard, pk=pk, user=request.user)   
     card.delete()
     return redirect('userauths:profile')

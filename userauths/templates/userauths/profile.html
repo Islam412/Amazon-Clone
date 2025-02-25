@@ -166,7 +166,11 @@
                                                     <sup>{{credit.cvv}}</sup>
                                                 </p>
                                                 <h5>{{credit.name}}</h5>
-                                                <button class="trash icofont-ui-delete" title="Remove This" data-bs-dismiss="alert"></button>
+                                                <form action="{% url 'userauths:delete_card' credit.pk %}" method="post" style="display: inline;">
+                                                    {% csrf_token %}
+                                                    <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                </form>
+                                                
                                             </div>
                                         </div>
                                     {% endfor %}
