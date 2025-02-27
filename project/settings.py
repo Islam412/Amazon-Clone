@@ -149,7 +149,7 @@ DATABASES = {
 }
 
 
-# # PostgreSQL
+# PostgreSQL
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
@@ -299,7 +299,6 @@ STORAGES = {
 }
 
 
-# django_heroku.settings[locals]
 
 # django cache settings
 # CACHES = {
