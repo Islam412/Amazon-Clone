@@ -9,7 +9,7 @@ services:
       - myredis
       - db
     environment:
-      POSTGRES_DB: MARCATO_DB
+      POSTGRES_DB: amazon_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1111
   db:
@@ -17,7 +17,7 @@ services:
     container_name: postgres_db
     restart: always 
     environment:
-      POSTGRES_DB: MARCATO_DB
+      POSTGRES_DB: amazon_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1111
     volumes:

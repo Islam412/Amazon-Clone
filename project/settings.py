@@ -153,7 +153,7 @@ DATABASES = {
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "MARCATO_DB",
+#         "NAME": "amazon_db",
 #         "USER": "postgres",
 #         "PASSWORD": "1111",
 #         "HOST": "127.0.0.1",
@@ -165,7 +165,7 @@ DATABASES = {
 # DATABASES = {
 #     'default' : {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.getenv('DATABASE_NAME', 'MARCATO_DB'),
+#         'NAME': os.getenv('DATABASE_NAME', 'amazon_db'),
 #         'USER': os.getenv('DATABASE_USER', 'postgres'),
 #         'PASSWORD': os.getenv('DATABASE_PASSWORD', '1111'),
 #         'HOST': os.getenv('DATABASE_HOST', 'db'),
