@@ -8,16 +8,16 @@ from django.urls import reverse_lazy , reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import PasswordChangeView
-from django.http import HttpResponse
+from django.http import HttpResponse , Http404
 from django.views.decorators.http import require_POST
 from django.core.mail import send_mail
+from django.contrib.auth.hashers import make_password
 
 
 
 from userauths.models import User , Profile , Address , Phone , CreditCard , PasswordResetToken
-from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm , AddressUpdateForm , CreditCardForm
+from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm , AddressUpdateForm , CreditCardForm , SetNewPasswordForm
 from userauths.serializers import UserSerializer , ProfileSerializer , PasswordResetRequestForm
-
 
 
 class RegisterView(FormView):
@@ -415,3 +415,31 @@ def send_reset_email(request):
 
     return render(request, "auth/password_reset_request.html", {"form": form})
 
+
+
+def reset_password(request, token):
+    try:
+        reset_token = PasswordResetToken.objects.get(token=token)
+        if not reset_token.is_valid():
+            messages.error(request, "This reset link has expired.")
+            return redirect("send_reset_email")
+    except PasswordResetToken.DoesNotExist:
+        raise Http404("Invalid reset link")
+
+    if request.method == "POST":
+        form = SetNewPasswordForm(request.POST)
+        if form.is_valid():
+            new_password = form.cleaned_data['new_password']
+            user = reset_token.user
+            user.password = make_password(new_password)
+            user.save()
+
+            reset_token.delete()
+
+            messages.success(request, "Your password has been reset successfully. You can now log in.")
+            return redirect("login")
+
+    else:
+        form = SetNewPasswordForm()
+
+    return render(request, "auth/reset_password.html", {"form": form})
