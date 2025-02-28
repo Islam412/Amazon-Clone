@@ -30,6 +30,8 @@ urlpatterns = [
     path('add-card/checkout', views.add_credit_card_checkout, name='add_card_checkout'),
     path('delete-card/<int:pk>/', views.delete_credit_card, name='delete_card'),
     path('delete-card/checkout/<int:pk>/', views.delete_credit_card_checkout, name='delete_card_checkout'),
+    path("reset-password/", views.send_reset_email, name="send_reset_email"),
+    path("reset-password/<uuid:token>/", views.reset_password, name="reset_password"),
 
     # api 
     path('api/<int:pk>/', api.UserRetrieveUpdateDestroyAPIView.as_view(), name='user_api_updc'),

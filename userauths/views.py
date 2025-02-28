@@ -12,12 +12,16 @@ from django.http import HttpResponse , Http404
 from django.views.decorators.http import require_POST
 from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import get_user_model
 
 
 
 from userauths.models import User , Profile , Address , Phone , CreditCard , PasswordResetToken
-from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm , AddressUpdateForm , CreditCardForm , SetNewPasswordForm
-from userauths.serializers import UserSerializer , ProfileSerializer , PasswordResetRequestForm
+from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm , AddressUpdateForm , CreditCardForm , SetNewPasswordForm , PasswordResetRequestForm
+from userauths.serializers import UserSerializer , ProfileSerializer
+
+
+
 
 
 class RegisterView(FormView):
@@ -25,10 +29,7 @@ class RegisterView(FormView):
     form_class = UserRegisterForm
     success_url = reverse_lazy('settings:home')
 
-from django.core.mail import send_mail
-from django.contrib.auth import get_user_model
-from .models import PasswordResetToken
-from .forms import PasswordResetRequestForm    def form_valid(self, form):
+    def form_valid(self, form):
         user = form.save()
         first_name = form.cleaned_data.get('first_name')
         last_name = form.cleaned_data.get('last_name')
@@ -397,7 +398,7 @@ def send_reset_email(request):
 
             reset_token = PasswordResetToken.objects.create(user=user)
 
-            reset_link = request.build_absolute_uri(reverse('reset_password', args=[reset_token.token]))
+            reset_link = request.build_absolute_uri(reverse('userauths:reset_password', args=[reset_token.token]))
 
             send_mail(
                 "Reset Your Password",
@@ -408,12 +409,12 @@ def send_reset_email(request):
             )
 
             messages.success(request, "A reset link has been sent to your email.")
-            return redirect("login")
+            return redirect("userauths:sign-in")
 
     else:
         form = PasswordResetRequestForm()
 
-    return render(request, "auth/password_reset_request.html", {"form": form})
+    return render(request, "userauths/password_reset_request.html", {"form": form})
 
 
 
@@ -422,7 +423,7 @@ def reset_password(request, token):
         reset_token = PasswordResetToken.objects.get(token=token)
         if not reset_token.is_valid():
             messages.error(request, "This reset link has expired.")
-            return redirect("send_reset_email")
+            return redirect("userauths:send_reset_email")
     except PasswordResetToken.DoesNotExist:
         raise Http404("Invalid reset link")
 
@@ -437,9 +438,9 @@ def reset_password(request, token):
             reset_token.delete()
 
             messages.success(request, "Your password has been reset successfully. You can now log in.")
-            return redirect("login")
+            return redirect("userauths:sign-in")
 
     else:
         form = SetNewPasswordForm()
 
-    return render(request, "auth/reset_password.html", {"form": form})
+    return render(request, "userauths/reset_password.html", {"form": form})
