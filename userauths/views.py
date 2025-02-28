@@ -4,20 +4,19 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.shortcuts import redirect ,get_object_or_404 ,render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy , reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponse
 from django.views.decorators.http import require_POST
+from django.core.mail import send_mail
 
 
 
-from userauths.models import User , Profile , Address , Phone , CreditCard
+from userauths.models import User , Profile , Address , Phone , CreditCard , PasswordResetToken
 from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm , AddressUpdateForm , CreditCardForm
-from userauths.serializers import UserSerializer , ProfileSerializer 
-
+from userauths.serializers import UserSerializer , ProfileSerializer , PasswordResetRequestForm
 
 
 
@@ -26,7 +25,10 @@ class RegisterView(FormView):
     form_class = UserRegisterForm
     success_url = reverse_lazy('settings:home')
 
-    def form_valid(self, form):
+from django.core.mail import send_mail
+from django.contrib.auth import get_user_model
+from .models import PasswordResetToken
+from .forms import PasswordResetRequestForm    def form_valid(self, form):
         user = form.save()
         first_name = form.cleaned_data.get('first_name')
         last_name = form.cleaned_data.get('last_name')
@@ -380,4 +382,36 @@ def delete_credit_card_checkout(request, pk):
     card = get_object_or_404(CreditCard, pk=pk, user=request.user)   
     card.delete()
     return redirect('orders:checkout')
+
+
+
+
+User = get_user_model()
+
+def send_reset_email(request):
+    if request.method == "POST":
+        form = PasswordResetRequestForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            user = User.objects.get(email=email)
+
+            reset_token = PasswordResetToken.objects.create(user=user)
+
+            reset_link = request.build_absolute_uri(reverse('reset_password', args=[reset_token.token]))
+
+            send_mail(
+                "Reset Your Password",
+                f"Click the link to reset your password: {reset_link}",
+                "no-reply@example.com",
+                [email],
+                fail_silently=False,
+            )
+
+            messages.success(request, "A reset link has been sent to your email.")
+            return redirect("login")
+
+    else:
+        form = PasswordResetRequestForm()
+
+    return render(request, "auth/password_reset_request.html", {"form": form})
 
