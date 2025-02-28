@@ -1,9 +1,9 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import get_user_model
 
 from userauths.models import User , Profile , Address , Phone , CreditCard
-
 
 
 class UserRegisterForm(UserCreationForm):
@@ -159,3 +159,17 @@ class CreditCardForm(forms.ModelForm):
     class Meta:
         model = CreditCard
         fields = ['name', 'card_number', 'country', 'cvv', 'expiration_date']
+
+
+
+
+User = get_user_model()
+
+class PasswordResetRequestForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter your email'}))
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not User.objects.filter(email=email).exists():
+            raise forms.ValidationError("No user found with this email.")
+        return email
