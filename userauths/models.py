@@ -153,8 +153,7 @@ class PasswordResetToken(models.Model):
     created_at = models.DateTimeField(default=now)
 
     def is_valid(self):
-        """ التوكن صالح لمدة 30 دقيقة فقط """
-        return (now() - self.created_at).total_seconds() < 1800  # 30 دقيقة
+        return (now() - self.created_at).total_seconds() < 1800 
 
     def __str__(self):
         return f"Reset token for {self.user.email}"
