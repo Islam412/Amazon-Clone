@@ -4,8 +4,14 @@ from django.db.models.signals import post_save  # create profile before creat us
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
+from django.utils.timezone import now
+from django.contrib.auth import get_user_model
 
 from utils.generate_code import generate_code
+
+
+import uuid
+
 
 # Create your models here.
 
@@ -134,3 +140,21 @@ class CreditCard(models.Model):
 
     def __str__(self):
         return f"Card ending in {self.card_number[-4:]} - {self.user.username}"
+
+
+
+
+
+User = get_user_model()
+
+class PasswordResetToken(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    token = models.UUIDField(default=uuid.uuid4, unique=True)
+    created_at = models.DateTimeField(default=now)
+
+    def is_valid(self):
+        """ التوكن صالح لمدة 30 دقيقة فقط """
+        return (now() - self.created_at).total_seconds() < 1800  # 30 دقيقة
+
+    def __str__(self):
+        return f"Reset token for {self.user.email}"
