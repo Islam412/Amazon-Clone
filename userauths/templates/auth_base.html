@@ -24,7 +24,7 @@
         =======================================-->
 
         <!-- WEBPAGE TITLE -->
-        <title>Greeny - Register</title>
+        <title>{{ company_data }}</title>
 
         <!--=====================================
                     CSS LINK PART START
@@ -32,7 +32,7 @@
         {% if LANGUAGE_CODE == 'en' %}
 
             <!-- FAVICON -->
-            <link rel="icon" href="images/favicon.png">
+            <link rel="icon" href="{{ company_data.logo.url }}">
 
             <!-- FONTS -->
             <link rel="stylesheet" href="{% static 'en/fonts/flaticon/flaticon.css' %}">
