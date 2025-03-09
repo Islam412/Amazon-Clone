@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ProductDetails, ProductList, BrandList, BrandDetails, queryset_debug , product_search , product_filter , product_filter_by_flag , send_emails , add_review
+from .views import ProductDetails, ProductList, BrandList, BrandDetails, queryset_debug , product_search , product_filter , product_filter_by_flag , send_emails , add_review 
 from .api import product_list_api , product_detail_api , ProductListAPI , ProductDetailAPI , BrandListAPI , BrandDetailAPI
 
 app_name = 'products'
