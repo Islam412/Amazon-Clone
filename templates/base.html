@@ -257,142 +257,53 @@
                 </h4>
                 <button class="category-close"><i class="icofont-close"></i></button>
             </div>
-            <ul class="category-list">
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-vegetable"></i>
-                        <span>vegetables</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">asparagus</a></li>
-                        <li><a href="#">broccoli</a></li>
-                        <li><a href="#">carrot</a></li>
+
+            <div class="shop-widget">
+                <h6 class="shop-widget-title">Filter by Price</h6>
+                <form method="get" action="{% url 'products:product_filter' %}">
+                    <div class="shop-widget-group">
+                        <input type="text" name="min_price" placeholder="Min - 00">
+                        <input type="text" name="max_price" placeholder="Max - 5k">
+                    </div>
+                    <button type="submit" class="shop-widget-btn">
+                        <i class="fas fa-search"></i>
+                        <span>Search</span>
+                    </button>
+                </form>
+            </div>
+            
+
+            <div class="shop-widget">
+                <h6 class="shop-widget-title">Filter by Tag</h6>
+                <form method="get" action="{% url 'products:product_filter_by_tags' %}">
+                    <ul class="shop-widget-list">
+                        <li>
+                            <div class="shop-widget-content">
+                                <input type="checkbox" id="tag1" name="tags" value="New">
+                                <label for="tag1">new items</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="shop-widget-content">
+                                <input type="checkbox" id="tag2" name="tags" value="Sale">
+                                <label for="tag2">sale items</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="shop-widget-content">
+                                <input type="checkbox" id="tag3" name="tags" value="Feature">
+                                <label for="tag3">feature items</label>
+                            </div>
+                        </li>
                     </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-groceries"></i>
-                        <span>groceries</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Grains & Bread</a></li>
-                        <li><a href="#">Dairy & Eggs</a></li>
-                        <li><a href="#">Oil & Fat</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-fruit"></i>
-                        <span>fruits</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Apple</a></li>
-                        <li><a href="#">Orange</a></li>
-                        <li><a href="#">Strawberry</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-dairy-products"></i>
-                        <span>dairy farm</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Egg</a></li>
-                        <li><a href="#">milk</a></li>
-                        <li><a href="#">butter</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-crab"></i>
-                        <span>sea foods</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Lobster</a></li>
-                        <li><a href="#">Octopus</a></li>
-                        <li><a href="#">Shrimp</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-salad"></i>
-                        <span>diet foods</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Salmon</a></li>
-                        <li><a href="#">Potatoes</a></li>
-                        <li><a href="#">Greens</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-dried-fruit"></i>
-                        <span>dry foods</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">noodles</a></li>
-                        <li><a href="#">Powdered milk</a></li>
-                        <li><a href="#">nut & yeast</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-fast-food"></i>
-                        <span>fast foods</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">mango</a></li>
-                        <li><a href="#">plumsor</a></li>
-                        <li><a href="#">raisins</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-cheers"></i>
-                        <span>drinks</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Wine</a></li>
-                        <li><a href="#">Juice</a></li>
-                        <li><a href="#">Water</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-beverage"></i>
-                        <span>coffee</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Cappuchino</a></li>
-                        <li><a href="#">Espresso</a></li>
-                        <li><a href="#">Latte</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-barbecue"></i>
-                        <span>meats</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Meatball</a></li>
-                        <li><a href="#">Sausage</a></li>
-                        <li><a href="#">Poultry</a></li>
-                    </ul>
-                </li>
-                <li class="category-item">
-                    <a class="category-link dropdown-link" href="#">
-                        <i class="flaticon-fish"></i>
-                        <span>fishes</span>
-                    </a>
-                    <ul class="dropdown-list">
-                        <li><a href="#">Agujjim</a></li>
-                        <li><a href="#">saltfish</a></li>
-                        <li><a href="#">pazza</a></li>
-                    </ul>
-                </li>
-            </ul>
+                    <button type="submit" class="shop-widget-btn">
+                        <i class="far fa-trash-alt"></i>
+                        <span>apply filter</span>
+                    </button>
+                </form>
+            </div>
             <div class="category-footer">
-                <p>All Rights Reserved by <a href="#">Mironcoder</a></p>
+                <p>All Rights Reserved by <a href="https://github.com/Islam412">Islam Hamdy</a></p>
             </div>
         </aside>
         <!--=====================================
