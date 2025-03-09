@@ -479,10 +479,10 @@
                 <span>{% translate "cartlist" %}</span>
                 <sup>{{cart_detail_data|length}}</sup>
             </button>
-            <a href="wishlist.html" title="Wishlist">
+            <a href="{% url 'orders:wishlist' %}" title="Wishlist">
                 <i class="fas fa-heart"></i>
                 <span>{% translate "wishlist" %}</span>
-                <sup>0</sup>
+                <sup>{{ request.user.wishlist_user.count }}</sup>
             </a>
             <button class="cate-btn" title="Category List">
                 <i class="fas fa-list"></i>
