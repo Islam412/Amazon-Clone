@@ -5,7 +5,7 @@ Online store using python , django , rest framework , payment and more
 ## 🛒 Amazon Clone
 
 ## Description
-The Amazon Clone is a fully functional e-commerce web application built using Python, Django, and the Django REST Framework. This project aims to replicate the core features of a typical online shopping platform, allowing users to browse products, manage their shopping carts, and process payments. The application includes user authentication, product management, and order processing, providing a comprehensive learning experience in web development.
+    The Amazon Clone is a fully functional e-commerce web application built using Python, Django, and the Django REST Framework. This project aims to replicate the core features of a typical online shopping platform, allowing users to browse products, manage their shopping carts, and process payments. The application includes user authentication, product management, and order processing, providing a comprehensive learning experience in web development.
 
 
 ## Tech Stack
