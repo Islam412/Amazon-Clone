@@ -329,11 +329,11 @@ STORAGES = {
 
 # JAZZMIN settings
 JAZZMIN_SETTINGS = {
-    'site_header': "Store",
-    'site_brand': "Store...",
+    'site_header': "Ecommerce Store",
+    'site_brand': "Ecommerce Store...",
     'site_logo': "en/assets/img/amazon.png",
-    'copyright':  "All Right Reserved 2024",
-    "welcome_sign": "Welcome to store Admin, Login Now.",
+    'copyright':  "All Right Reserved 2025",
+    "welcome_sign": "Welcome to Ecommerce Store Admin, Login Now.",
     "topmenu_links": [
         
     ],
