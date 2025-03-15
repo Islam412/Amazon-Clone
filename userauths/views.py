@@ -14,8 +14,6 @@ from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 
-
-
 from userauths.models import User , Profile , Address , Phone , CreditCard , PasswordResetToken
 from userauths.forms import UserRegisterForm , ProfileForm , CustomPasswordChangeForm , PhoneUpdateForm , AddressUpdateForm , CreditCardForm , SetNewPasswordForm , PasswordResetRequestForm
 from userauths.serializers import UserSerializer , ProfileSerializer
@@ -94,8 +92,7 @@ class LogoutView(LoginRequiredMixin, TemplateView):
 
 
 
-# @login_required
-class ProfileView(DetailView):
+class ProfileView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'userauths/profile.html'
     context_object_name = 'profile'
@@ -114,8 +111,7 @@ class ProfileView(DetailView):
 
 
 
-# @login_required
-class ProfileUpdateView(UpdateView):
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     model = Profile
     form_class = ProfileForm
     template_name = 'userauths/profile_update.html'
@@ -134,7 +130,7 @@ class ProfileUpdateView(UpdateView):
 
 
 
-class ChangePasswordView(PasswordChangeView):
+class ChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     template_name = 'userauths/change-password.html'
     form_class = CustomPasswordChangeForm
     success_url = reverse_lazy('userauths:profile')
@@ -228,7 +224,7 @@ class PhoneUpdateCheckoutView(LoginRequiredMixin, UpdateView):
         return reverse_lazy('orders:checkout')
 
 
-
+@login_required 
 def delete_phone_checkout(request, pk):
 
     if request.user.is_authenticated and request.method == "POST":
@@ -338,7 +334,7 @@ def add_address_checkout(request):
 
 
 
-
+@login_required 
 def add_credit_card(request):
     if request.method == "POST":
         form = CreditCardForm(request.POST)
@@ -352,7 +348,7 @@ def add_credit_card(request):
     return render(request, 'userauths/add_card.html', {'form': form})
 
 
-
+@login_required 
 def add_credit_card_checkout(request):
     if request.method == "POST":
         form = CreditCardForm(request.POST)
