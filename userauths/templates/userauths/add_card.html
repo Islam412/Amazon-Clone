@@ -86,11 +86,11 @@
 <body>
     <div class="container">
         <div class="card">
-            <div class="card-header">Add Your Address</div>
+            <div class="card-header">Add Your Credit Card</div>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Add Credit Cards</button>
+                <button type="submit" class="btn btn-primary">Add Credit Card</button>
                 <div class="d-flex justify-content-between">
                     <a href="{% url 'settings:home' %}" class="btn-secondary">Back to Home</a>
                     <a href="{% url 'userauths:profile' %}" class="btn-secondary">Back to Profile</a>
