@@ -32,7 +32,7 @@ class OrderListView(LoginRequiredMixin , ListView):
         return queryset
 
 
-
+@login_required 
 def add_to_cart(request):
     quantity = request.POST['quantity']
     product = Product.objects.get(id=request.POST['product_id'])
@@ -46,14 +46,14 @@ def add_to_cart(request):
 
     return redirect (f'/products/{product.slug}')
 
-
+@login_required 
 def remove_from_cart(request,id):
     cart_detail = CartDetails.objects.get(id=id)
     cart_detail.delete()
     return redirect('/products/')
 
 
-
+@login_required 
 def remove_from_checkout(request,id):
     cart_detail = CartDetails.objects.get(id=id)
     cart_detail.delete()
@@ -219,7 +219,7 @@ def wishlist_view(request):
         return redirect('userauths:sign-in')
 
 
-
+@login_required 
 def remove_from_wishlist(request, pk):
     if request.user.is_authenticated:
         wishlist_item = get_object_or_404(Wishlist, pk=pk, user=request.user)
