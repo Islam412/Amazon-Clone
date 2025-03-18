@@ -444,6 +444,12 @@
                     <li><a class="nav-link" href="{% url 'settings:faq' %}">{% translate "need help" %}</a></li>
                     <li><a class="nav-link" href="{% url 'settings:contact' %}">{% translate "contact us" %}</a></li>
                     <li><a class="nav-link" href="{% url 'userauths:sign-out' %}">{% translate "logout" %}</a></li>
+
+                    {% if request.user.is_authenticated and request.user.is_staff and request.user.is_superuser %}
+                        <li class="navbar-item">
+                            <a href="/admin" class="nav-link">{% translate "Admin" %}</a>
+                        </li>
+                    {% endif %}
                 </ul>
                 <div class="nav-info-group">
                     <div class="nav-info">
