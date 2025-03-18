@@ -218,6 +218,11 @@
                                 <li class="navbar-item">
                                     <a class="navbar-link" href="{% url 'orders:order_list' %}">{% translate "Order" %}</a>
                                 </li>
+                                {% if request.user.is_authenticated and request.user.is_staff and request.user.is_superuser %}
+                                    <li class="navbar-item">
+                                        <a href="/admin" class="navbar-link">{% translate "Admin" %}</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                             <div class="navbar-info-group">
                                 <div class="navbar-info">
