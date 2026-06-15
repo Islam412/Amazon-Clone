@@ -1,0 +1,709 @@
+
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+<!DOCTYPE html>
+<html lang="en" {% if LANGUAGE_CODE == 'ar' %} dir="rtl" {% endif %}>
+    <head>
+        <!--=====================================
+                    META TAG PART START
+        =======================================-->
+        <!-- REQUIRE META -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- AUTHOR META -->
+        <meta name="author" content="Islam Hamdy">
+        <meta name="email" content="islam.124.hamdy@gmail.com">
+
+
+        <!-- TEMPLATE META -->
+        <meta name="name" content="Greeny">
+        <meta name="title" content="Greeny - eCommerce HTML Template">
+        <meta name="keywords" content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, webshop, farm, grocery, natural, online store">
+        <!--=====================================
+                    META-TAG PART END
+        =======================================-->
+
+        <!-- WEBPAGE TITLE -->
+        <title>{{ company_data }}</title>
+
+        <!--=====================================
+                    CSS LINK PART START
+        =======================================-->
+        <!-- FAVICON -->
+        <link rel="icon" href="{{ company_data.logo.url }}">
+
+        <!-- FONTS -->
+        {% if LANGUAGE_CODE == 'en' %}
+        
+            <link rel="stylesheet" href="{% static 'en/fonts/flaticon/flaticon.css' %}">
+            <link rel="stylesheet" href="{% static 'en/fonts/icofont/icofont.min.css' %}">
+            <link rel="stylesheet" href="{% static 'en/fonts/fontawesome/fontawesome.min.css' %}">
+
+            <!-- VENDOR -->
+            <link rel="stylesheet" href="{% static 'en/vendor/venobox/venobox.min.css' %}">
+            <link rel="stylesheet" href="{% static 'en/vendor/slickslider/slick.min.css' %}">
+            <link rel="stylesheet" href="{% static 'en/vendor/niceselect/nice-select.min.css' %}">
+            <link rel="stylesheet" href="{% static 'en/vendor/bootstrap/bootstrap.min.css' %}">
+
+            <!-- CUSTOM -->
+            <link rel="stylesheet" href="{% static 'en/css/main.css' %}">
+            
+            
+        {% else %}
+            <link rel="stylesheet" href="{% static 'ar/fonts/flaticon/flaticon.css' %}">
+            <link rel="stylesheet" href="{% static 'ar/fonts/icofont/icofont.min.css' %}">
+            <link rel="stylesheet" href="{% static 'ar/fonts/fontawesome/fontawesome.min.css' %}">
+
+            <!-- VENDOR -->
+            <link rel="stylesheet" href="{% static 'ar/vendor/venobox/venobox.min.css' %}">
+            <link rel="stylesheet" href="{% static 'ar/vendor/slickslider/slick.min.css' %}">
+            <link rel="stylesheet" href="{% static 'ar/vendor/niceselect/nice-select.min.css' %}">
+            <link rel="stylesheet" href="{% static 'ar/vendor/bootstrap/bootstrap.min.css' %}">
+
+            <!-- CUSTOM -->
+            <link rel="stylesheet" href="{% static 'ar/css/main.css' %}">
+        {% endif %}
+        {% block css %}
+            <link rel="stylesheet" href="{% static 'en/css/index.css' %}">
+        {% endblock css %}
+        <!--=====================================
+                    CSS LINK PART END
+        =======================================-->
+    </head>
+    
+    <body>
+        <div class="backdrop"></div>
+        <a class="backtop fas fa-arrow-up" href="#"></a>
+        
+        <!--=====================================
+                    HEADER TOP PART START
+        =======================================-->
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-5">
+                        <div class="header-top-welcome">
+                            <a href="/"><p>Welcome to Ecomarth in Your {{ company_data }}!</p></a>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-3">
+                        <div class="header-top-select">
+                            <div class="header-select">
+                                
+                                
+                                <i class="icofont-world"></i>
+                                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                                    <select name="language" class="select">
+                                        {% get_current_language as LANGUAGE_CODE %}
+                                        {% get_available_languages as LANGUAGES %}
+                                        {% get_language_info_list for LANGUAGES as languages %}
+                                        {% for language in languages %}
+                                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                                                {{ language.name_local }} ({{ language.code }})
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <input type="submit" value="  {% translate "Go" %}" style="color: #FFFFFF;">
+                                </form>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-lg-4">
+                        <ul class="header-top-list">
+                            <li><a href="{% url 'orders:coupon' %}">{% translate "Offers" %}</a></li>
+                            <li><a href="{% url 'settings:faq' %}">{% translate "Need Help" %}</a></li>
+                            <li><a href="{% url 'settings:contact' %}">{% translate "contact us" %}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=====================================
+                    HEADER TOP PART END 
+        =======================================-->
+
+
+
+        <!--=====================================
+                    HEADER PART START
+        =======================================-->
+        <header class="header-part">
+            <div class="container">
+                <div class="header-content">
+                    <div class="header-media-group">
+                        {% if user.is_authenticated %}
+                            <img class="header-user" src="{{ user.profile.cover_images.url }}" alt="user" style="border-radius: 50%; width: 50px; height: 50px;"">
+                        {% else %}
+                            <img class="header-user" src="{% static 'en/images/user.png' %}" alt="user" style="border-radius: 50%; width: 50px; height: 50px;">
+                        {% endif %}
+
+                        <a href="index.html"><img src="{{ company_data.logo.url }}" alt="logo"></a>
+                        <button class="header-src"><i class="fas fa-search"></i></button>
+                    </div>
+        
+                    <a href="/" class="header-logo">
+                        <img src="{{ company_data.logo.url }}" alt="logo">
+                    </a>
+        
+                    <div class="dropdown">
+                        <button class="header-widget" title="My Account">
+                            {% if user.is_authenticated %}
+
+                                <img class="header-user" src="{{ user.profile.cover_images.url }}" alt="user" style="border-radius: 50%; width: 50px; height: 50px;"">
+                            {% else %}
+                                <img class="header-user" src="{% static 'en/images/user.png' %}" alt="user" style="border-radius: 50%; width: 50px; height: 50px;">
+                            {% endif %}
+                        </button>
+                        <ul class="dropdown-position-list navbar-link">
+                            <li><a href="{% url 'userauths:profile' %}">{% translate "Profile" %}</a></li>
+                            <li><a href="{% url 'userauths:profile-edit' %}">{% translate "Edit Profile" %}</a></li>
+                            <li><a href="{% url 'userauths:sign-out' %}">{% translate "Log out" %}</a></li>
+                        </ul>
+                    </div>
+        
+                    <form class="header-form" method="get" action="{% url 'products:product_search' %}">
+                        <input type="text" name="q" placeholder="Search anything..." value="{{ request.GET.q }}">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                    
+        
+                    <div class="header-widget-group">
+                        <a href="{% url 'orders:wishlist' %}" class="header-widget" title="Wishlist">
+                            <i class="fas fa-heart"></i>
+                            <sup>{{ request.user.wishlist_user.count }}</sup>
+                        </a>
+                        
+                        <button class="header-widget header-cart" title="Cartlist">
+                            <i class="fas fa-shopping-basket"></i>
+                            <sup>{{cart_detail_data|length}}</sup>
+                            <span>{% translate "total price" %}<small>${{cart_data.cart_total}}</small></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!--=====================================
+                    HEADER PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    NAVBAR PART START
+        =======================================-->
+        <nav class="navbar-part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="navbar-content">
+                            <ul class="navbar-list">
+                                <li class="navbar-item">
+                                    <a class="navbar-link" href="/">{% translate "Home" %}</a>
+                                </li>
+
+                                <li class="navbar-item">
+                                    <a class="navbar-link" href="{% url 'products:product_list' %}">{% translate "Shop" %}</a>
+                                </li>
+
+                                <li class="navbar-item">
+                                    <a class="navbar-link" href="{% url 'products:brand_list' %}">{% translate "Brand" %}</a>
+                                </li>
+
+                                <li class="navbar-item">
+                                    <a class="navbar-link" href="{% url 'orders:order_list' %}">{% translate "Order" %}</a>
+                                </li>
+                                {% if request.user.is_authenticated and request.user.is_staff and request.user.is_superuser %}
+                                    <li class="navbar-item">
+                                        <a href="/admin" class="navbar-link">{% translate "Admin" %}</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <div class="navbar-info-group">
+                                <div class="navbar-info">
+                                    <i class="icofont-ui-touch-phone"></i>
+                                    <p>
+                                        <small>{% translate "call us" %}</small>
+                                        <span>{{ company_data.call_us }}</span>
+                                    </p>
+                                </div>
+                                <div class="navbar-info">
+                                    <i class="icofont-ui-email"></i>
+                                    <p>
+                                        <small>{% translate "email us" %}</small>
+                                        <span>{{ company_data.email_us }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!--=====================================
+                    NAVBAR PART END
+        =======================================-->
+
+
+
+        <!--=====================================
+                CATEGORY SIDEBAR PART START
+        =======================================-->
+        <aside class="category-sidebar">
+            <div class="category-header">
+                <h4 class="category-title">
+                    <i class="fas fa-align-left"></i>
+                    <span>categories</span>
+                </h4>
+                <button class="category-close"><i class="icofont-close"></i></button>
+            </div>
+
+            <div class="shop-widget">
+                <h6 class="shop-widget-title">Filter by Price</h6>
+                <form method="get" action="{% url 'products:product_filter' %}">
+                    <div class="shop-widget-group">
+                        <input type="text" name="min_price" placeholder="Min - 00">
+                        <input type="text" name="max_price" placeholder="Max - 5k">
+                    </div>
+                    <button type="submit" class="shop-widget-btn">
+                        <i class="fas fa-search"></i>
+                        <span>Search</span>
+                    </button>
+                </form>
+            </div>
+            
+
+            <div class="shop-widget">
+                <h6 class="shop-widget-title">Filter by Tag</h6>
+                <form method="get" action="{% url 'products:product_filter_by_tags' %}">
+                    <ul class="shop-widget-list">
+                        <li>
+                            <div class="shop-widget-content">
+                                <input type="checkbox" id="tag1" name="tags" value="New">
+                                <label for="tag1">new items</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="shop-widget-content">
+                                <input type="checkbox" id="tag2" name="tags" value="Sale">
+                                <label for="tag2">sale items</label>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="shop-widget-content">
+                                <input type="checkbox" id="tag3" name="tags" value="Feature">
+                                <label for="tag3">feature items</label>
+                            </div>
+                        </li>
+                    </ul>
+                    <button type="submit" class="shop-widget-btn">
+                        <i class="far fa-trash-alt"></i>
+                        <span>apply filter</span>
+                    </button>
+                </form>
+            </div>
+            <div class="category-footer">
+                <p>All Rights Reserved by <a href="https://github.com/Islam412">Islam Hamdy</a></p>
+            </div>
+        </aside>
+        <!--=====================================
+                CATEGORY SIDEBAR PART END
+        =======================================-->
+
+
+        <!--=====================================
+                  CART SIDEBAR PART START
+        =======================================-->
+        <aside class="cart-sidebar">
+            <div class="cart-header">
+                <div class="cart-total">
+                    <i class="fas fa-shopping-basket"></i>
+                    <span>{% translate "total item" %} ({{cart_detail_data|length}})</span>
+                </div>
+                <button class="cart-close"><i class="icofont-close"></i></button>
+            </div>
+            <ul class="cart-list">
+                {% for item in cart_detail_data %}
+                    <li class="cart-item">
+                        <div class="cart-media">
+                            <a href="{% url 'products:product_detail' item.product.slug %}"><img src="{{item.product.image.url}}" alt="product"></a>
+                            
+                            
+                        </div>
+                        <div class="cart-info-group">
+                            <div class="cart-info">
+                                <h6><a href="{% url 'products:product_detail' item.product.slug %}">{{item.product}}</a></h6>
+                                <p>Unit Price - ${{item.product.price}}</p>
+                            </div>
+                            <div class="cart-action-group">
+                                <div class="product-action">
+                                    <input class="action-input" title="Quantity Number" type="text" name="quantity" value="{{item.quantity}}">
+                                    {% comment %} <a href="{% url 'orders:remove_from_cart' item.id %}" class="action-input"><i class="far fa-trash-alt"></i></a> {% endcomment %}
+
+                                    <a href="{% url 'orders:remove_from_cart' item.id %}" 
+                                        style="display: inline-block; padding: 3px 12px; background-color: #dc3545; color: white; border-radius: 6px; text-decoration: none; transition: background 0.3s;"
+                                        onmouseover="this.style.backgroundColor='#c82333'"
+                                        onmouseout="this.style.backgroundColor='#dc3545'">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+
+                                </div>
+                                <h6>${{item.total}}</h6>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="cart-footer">
+                <a class="cart-checkout-btn" href="{% url 'orders:checkout' %}">
+                    <span class="checkout-label">{% translate "Proceed to Checkout" %}</span>
+                    <span class="checkout-price">${{cart_data.cart_total}}</span>
+                </a>
+            </div>
+        </aside>
+        <!--=====================================
+                    CART SIDEBAR PART END
+        =======================================-->
+
+
+        <!--=====================================
+                  NAV SIDEBAR PART START
+        =======================================-->
+        <aside class="nav-sidebar">
+            <div class="nav-header">
+                <a href="/"><img src="{{ company_data.logo.url }}" alt="logo"></a>
+                <button class="nav-close"><i class="icofont-close"></i></button>
+            </div>
+            <div class="nav-content">
+
+                    <div class="nav-btn dropdown">
+                        <a href="login.html" class="btn btn-inline">
+                            {% if user.is_authenticated %}
+
+                                <img class="header-user" src="{{ user.profile.cover_images.url }}" alt="user" style="border-radius: 130%; width: 150px; height: 104px;"">
+                            {% else %}
+                                <img class="header-user" src="{% static 'images/user.png' %}" alt="user" style="border-radius: 50%; width: 50px; height: 50px;">
+                            {% endif %}
+                        </a>
+
+                        <ul class="dropdown-position-list navbar-link">
+                            <li><a href="{% url 'userauths:profile' %}">{% translate "Profile" %}</a></li>
+                            <li><a href="{% url 'userauths:profile-edit' %}">{% translate "Edit Profile" %}</a></li>
+                            <li><a href="{% url 'userauths:sign-out' %}">{% translate "Log out" %}</a></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+                <!-- This commentable code show when user login or register -->
+                <!-- <div class="nav-profile">
+                    <a class="nav-user" href="#"><img src="{% static 'en/images/user.png' %}" alt="user"></a>
+                    <h4 class="nav-name"><a href="profile.html">Miron Mahmud</a></h4>
+                </div> -->
+                <div class="nav-select-group">
+                    <div class="nav-select">
+                        <i class="icofont-world"></i>
+                        <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                            <input name="next" type="hidden" value="{{ redirect_to }}">
+                            <select name="language" class="select">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                    <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                                        {{ language.name_local }} ({{ language.code }})
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="  {% translate "Go" %}" style="color: #FFFFFF;">
+                        </form>
+                    </div>
+                </div>
+                <ul class="nav-list">
+                    <li>
+                        <a class="nav-link" href="/">{% translate "Home" %}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{% url 'products:product_list' %}">{% translate "Shop" %}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{% url 'products:brand_list' %}">{% translate "brand" %}</a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="{% url 'orders:order_list' %}">{% translate "Order" %}</a>
+                    </li>
+
+                    <li><a class="nav-link" href="{% url 'orders:coupon' %}">{% translate "offers" %}</a></li>
+                    <li><a class="nav-link" href="{% url 'settings:faq' %}">{% translate "need help" %}</a></li>
+                    <li><a class="nav-link" href="{% url 'settings:contact' %}">{% translate "contact us" %}</a></li>
+                    <li><a class="nav-link" href="{% url 'userauths:sign-out' %}">{% translate "logout" %}</a></li>
+
+                    {% if request.user.is_authenticated and request.user.is_staff and request.user.is_superuser %}
+                        <li class="navbar-item">
+                            <a href="/admin" class="nav-link">{% translate "Admin" %}</a>
+                        </li>
+                    {% endif %}
+                </ul>
+                <div class="nav-info-group">
+                    <div class="nav-info">
+                        <i class="icofont-ui-touch-phone"></i>
+                        <p>
+                            <small>{% translate "call us" %}</small>
+                            <span>{{ company_data.call_us }}</span>
+                        </p>
+                    </div>
+                    <div class="nav-info">
+                        <i class="icofont-ui-email"></i>
+                        <p>
+                            <small>{% translate "email us" %}</small>
+                            <span>{{ company_data.email_us }}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="nav-footer">
+                    <p>{% translate "All Rights Reserved by " %}<a href="https://github.com/Islam412">Islam Hamdy</a></p>
+                </div>
+            </div>
+        </aside>
+        <!--=====================================
+                  NAV SIDEBAR PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    MOBILE-MENU PART START
+        =======================================-->
+        <div class="mobile-menu">
+            <a href="/" title="Home Page">
+                <i class="fas fa-home"></i>
+                <span>{% translate "Home" %}</span>
+            </a>
+            <button class="cart-btn" title="Cartlist">
+                <i class="fas fa-shopping-basket"></i>
+                <span>{% translate "cartlist" %}</span>
+                <sup>{{cart_detail_data|length}}</sup>
+            </button>
+            <a href="{% url 'orders:wishlist' %}" title="Wishlist">
+                <i class="fas fa-heart"></i>
+                <span>{% translate "wishlist" %}</span>
+                <sup>{{ request.user.wishlist_user.count }}</sup>
+            </a>
+            <button class="cate-btn" title="Category List">
+                <i class="fas fa-list"></i>
+                <span>{% translate "category" %}</span>
+            </button>
+        </div>
+        <!--=====================================
+                    MOBILE-MENU PART END
+        =======================================-->
+
+
+
+
+
+        
+        {% block boody %}
+            
+        {% endblock boody %}
+            
+
+
+        <!--=====================================
+                    INTRO PART START
+        =======================================-->
+        <section class="intro-part">
+            <div class="container">
+                <div class="row intro-content">
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>{% translate "free home delivery" %}</h5>
+                                <p>{{ company_data.free_home_delivery }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>{% translate "instant return policy" %}</h5>
+                                <p>{{ company_data.instant_return_policy }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>{% translate "quick support system" %}</h5>
+                                <p>{{ company_data.support_system }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="intro-wrap">
+                            <div class="intro-icon">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                            <div class="intro-content">
+                                <h5>{% translate "secure payment way" %}</h5>
+                                <p>{{ company_data.secure_payment_way }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================
+                    INTRO PART END
+        =======================================-->
+
+
+        <!--=====================================
+                     FOOTER PART START
+        =======================================-->
+        <footer class="footer-part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="footer-widget">
+                            <a class="footer-logo" href="/">
+                                <img src="{{ company_data.logo.url }}" alt="logo">
+                            </a>
+                            <p class="footer-desc">{{ company_data.subtitle }}.</p>
+                            <ul class="footer-social">
+                                <li><a class="icofont-facebook" href="{{ company_data.facebook_link }}"></a></li>
+                                <li><a class="icofont-instagram" href="{{ company_data.instgram_link }}"></a></li>
+                                <li><a class="icofont-twitter" href="{{ company_data.twitter_link }}"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="footer-widget contact">
+                            <h3 class="footer-title">{% translate "contact us" %}</h3>
+                            <ul class="footer-contact">
+                                <li>
+                                    <i class="icofont-ui-email"></i>
+                                    <p>
+                                        <a href="mailto:{{ company_data.email }}"><span style="color: black;">{{ company_data.email }}</span></a>
+                                    </p>
+                                </li>
+                                <li>
+                                    <i class="icofont-ui-touch-phone"></i>
+                                    <p>
+                                        <a href="https://wa.me/{{ company_data.phones }}"><span style="color: black;">{{ company_data.phones }}</span></a>
+                                    </p>
+                                </li>
+                                <li>
+                                    <i class="icofont-location-pin"></i>
+                                    <a href="https://www.google.com/maps?q={{ company_data.address }}"><p style="color: black;">{{ company_data.address }}</p></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="footer-widget">
+                            <h3 class="footer-title">{% translate "quick Links" %}</h3>
+                            <div class="footer-links">
+                                <ul>
+                                    <li><a href="/">{% translate "Home" %}</a></li>
+                                    <li><a href="{% url 'products:product_list' %}">{% translate "Product" %}</a></li>
+                                    <li><a href="{% url 'products:brand_list' %}">{% translate "Brand" %}</a></li>
+                                    <li><a href="{% url 'orders:order_list' %}">{% translate "Order" %}</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="{% url 'userauths:profile' %}">{% translate "My Account" %}</a></li>
+                                    <li><a href="{% url 'settings:contact' %}">{% translate "Contact" %}</a></li>
+                                    <li><a href="{% url 'settings:faq' %}">{% translate "Need Help" %}</a></li>
+                                    <li><a href="{% url 'orders:coupon' %}">{% translate "Offer" %}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="footer-widget">
+                            <h3 class="footer-title">{% translate "Download App" %}</h3>
+                            <p class="footer-desc">{{ company_data.android_ios_app }}</p>
+                            <div class="footer-app">
+                                <a href="{{ company_data.android_app }}"><img src="{% static 'en/images/apps/android.webp' %}" alt="google"></a>
+                                <a href="{{ company_data.ios_app }}"><img src="{% static 'en/images/apps/iOS.webp' %}" alt="app"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="footer-bottom">
+                            <p class="footer-copytext">&copy;  {% translate "All Copyrights Reserved by " %}<a target="_blank" href="https://github.com/Islam412">Islam Hamdy</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!--=====================================
+                      FOOTER PART END
+        =======================================-->
+        
+
+        <!--=====================================
+                    JS LINK PART START
+        =======================================-->
+        {% if LANGUAGE_CODE == 'en' %}
+            <script src="{% static 'en/vendor/bootstrap/jquery-1.12.4.min.js' %}"></script>
+            <script src="{% static 'en/vendor/bootstrap/popper.min.js' %}"></script>
+            <script src="{% static 'en/vendor/bootstrap/bootstrap.min.js' %}"></script>
+            <script src="{% static 'en/vendor/countdown/countdown.min.js' %}"></script>
+            <script src="{% static 'en/vendor/niceselect/nice-select.min.js' %}"></script>
+            <script src="{% static 'en/vendor/slickslider/slick.min.js' %}"></script>
+            <script src="{% static 'en/vendor/venobox/venobox.min.js' %}"></script>
+
+            <!-- CUSTOM -->
+            <script src="{% static 'en/js/nice-select.js' %}"></script>
+            <script src="{% static 'en/js/countdown.js' %}"></script>
+            <script src="{% static 'en/js/accordion.js' %}"></script>
+            <script src="{% static 'en/js/venobox.js' %}"></script>
+            <script src="{% static 'en/js/slick.js' %}"></script>
+            <script src="{% static 'en/js/main.js' %}"></script> 
+        {% else %}
+            <script src="{% static 'ar/vendor/bootstrap/jquery-1.12.4.min.js' %}"></script>
+            <script src="{% static 'ar/vendor/bootstrap/popper.min.js' %}"></script>
+            <script src="{% static 'ar/vendor/bootstrap/bootstrap.min.js' %}"></script>
+            <script src="{% static 'ar/vendor/countdown/countdown.min.js' %}"></script>
+            <script src="{% static 'ar/vendor/niceselect/nice-select.min.js' %}"></script>
+            <script src="{% static 'ar/vendor/slickslider/slick.min.js' %}"></script>
+            <script src="{% static 'ar/vendor/venobox/venobox.min.js' %}"></script>
+
+            <!-- CUSTOM -->
+            <script src="{% static 'ar/js/nice-select.js' %}"></script>
+            <script src="{% static 'ar/js/countdown.js' %}"></script>
+            <script src="{% static 'ar/js/accordion.js' %}"></script>
+            <script src="{% static 'ar/js/venobox.js' %}"></script>
+            <script src="{% static 'ar/js/slick.js' %}"></script>
+            <script src="{% static 'ar/js/main.js' %}"></script> 
+        {% endif %}
+        <!-- VENDOR -->
+        <!--=====================================
+                    JS LINK PART END
+        =======================================-->
+    </body>
+</html>
+
+
+
+
+
+

@@ -1,0 +1,13 @@
+Heroku :
+    -create account at Heroku
+    -install heroku cli
+     
+    -django project :
+        -crate Procfile
+        -runtime.txt
+        -update requirements.txt file
+
+        setup :
+            -django_heroku
+            -whitenoise
+            -gunicorn

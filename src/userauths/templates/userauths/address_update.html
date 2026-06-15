@@ -1,0 +1,108 @@
+{% comment %} {% extends 'base.html' %} {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Edit Your Profile</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e1e2f, #252538);
+            color: #f5f5f5;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .container {
+            max-width: 450px;
+            width: 100%;
+        }
+        .card {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border: none;
+        }
+        .card-header {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 12px;
+            color: #ffffff;
+            padding: 12px;
+            width: 100%;
+            font-size: 1rem;
+            margin-bottom: 16px;
+            outline: none;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="password"]:focus {
+            outline: 2px solid #42a5f5;
+        }
+        .btn-primary {
+            background: #42a5f5;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ffffff;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: #1e88e5;
+            box-shadow: 0 6px 12px rgba(66, 165, 245, 0.5);
+        }
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 12px;
+            margin-top: 12px;
+            display: inline-block;
+            text-align: center;
+            width: calc(50% - 5px);
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">Edit Your Address</div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <div class="d-flex justify-content-between">
+                    <a href="{% url 'settings:home' %}" class="btn-secondary">Back to Home</a>
+                    <a href="{% url 'userauths:profile' %}" class="btn-secondary">Back to Profile</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,603 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    {% if LANGUAGE_CODE == 'en' %}
+        <link rel="stylesheet" href="{% static 'en/css/checkout.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'ar/css/checkout.css' %}">
+    {% endif %}
+{% endblock css %}
+
+{% block boody %}
+        <!--=====================================
+                    BANNER PART START
+        =======================================-->
+        <section class="inner-section single-banner" style="background: url( {% static 'images/single-banner.jpg' %} ) no-repeat center;">
+            <div class="container">
+                <h2>checkout</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'orders:order_list' %}">Order</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">checkout</li>
+                </ol>
+            </div>
+        </section>
+        <!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    CHECKOUT PART START
+        =======================================-->
+        <section class="inner-section checkout-part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="alert-info">
+                            <p>Returning customer? <a href="{% url 'userauths:sign-out' %}">Click here to login</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="account-card">
+                            <div class="account-title">
+                                <h4>Your order</h4>
+                            </div>
+                            <div class="account-content">
+                                <div class="table-scroll">
+                                    <table class="table-list">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Serial</th>
+                                                <th scope="col">Product</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Price</th>
+                                                <th scope="col">brand</th>
+                                                <th scope="col">quantity</th>
+                                                <th scope="col">action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in cart_detail %}
+                                            
+                                                <tr>
+                                                    <td class="table-serial"><h6>{{forloop.counter}}</h6></td>
+                                                    <td class="table-image"><img src="{{item.product.image.url}}" alt="product"></td>
+                                                    <td class="table-name"><h6>{{item.product}}</h6></td>
+                                                    <td class="table-price"><h6>${{item.product.price}}</h6></td>
+                                                    <td class="table-brand"><h6>{{item.product.brand}}</h6></td>
+                                                    <td class="table-quantity"><h6>{{item.product.quantity}}</h6></td>
+                                                    <td class="table-action">
+                                                        {% comment %} <a class="view" href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#product-view"><i class="fas fa-eye"></i></a> {% endcomment %}
+                                                        <a class="trash" href="{% url 'orders:remove_from_checkout' item.id %}" title="Remove Wishlist"><i class="icofont-trash"></i></a>
+                                                    </td>
+                                                </tr>
+
+
+                                                <!--=====================================
+                                                PRODUCT VIEW START
+                                                ======================================-->
+                                                <div class="modal fade" id="product-view">
+                                                    <div class="modal-dialog"> 
+                                                        <div class="modal-content">
+                                                            <button class="modal-close icofont-close" data-bs-dismiss="modal"></button>
+                                                            <div class="product-view">
+                                                                <div class="row">
+                                                                    <div class="col-md-6 col-lg-6">
+                                                                        <div class="details-gallery">
+                                                                            <div class="details-label-group">
+                                                                                <label class="details-label new">{{item.product.flag}}</label>
+                                                                            </div>
+                                                                            <ul class="details-preview"> 
+                                                                                {% for image in item.product.product_image.all  %}
+                                                                                    <li><img src="{{image.productimage.url}}" alt="product"></li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                            <ul class="details-thumb">
+                                                                                {% for image in item.product.product_image.all  %}
+                                                                                    <li><img src="{{image.product.image.url}}" alt="product"></li>
+                                                                                {% endfor %}
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6 col-lg-6">
+                                                                        <div class="view-details">
+                                                                            <h3 class="view-name">
+                                                                                <a href="product-video.html">{{item.product}}</a>
+                                                                            </h3>
+                                                                        <div class="view-meta">
+                                                                            <p>SKU:<span>{{item.product.sku}}7</span></p>
+                                                                            <p>BRAND:<a href="#">{{item.product.brand}}</a></p>
+                                                                        </div>
+                                                                    <div class="product-rating">
+                                                                        <i class="icofont-star {% if item.product.avg_rate > 0 %}active{% endif %}"></i>
+                                                                        <i class="icofont-star {% if item.product.avg_rate > 1 %}active{% endif %}"></i>
+                                                                        <i class="icofont-star {% if item.product.avg_rate > 2 %}active{% endif %}"></i>
+                                                                        <i class="icofont-star {% if item.product.avg_rate > 3 %}active{% endif %}"></i>
+                                                                        <i class="icofont-star {% if item.product.avg_rate > 4 %}active{% endif %}"></i>
+                                                                        <a href="{% url 'products:product_detail' item.product.slug %}">({{item.product.review_product.all|length}})</a>
+                                                                    </div>
+                                                                    <h3 class="view-price">
+                                                                        <span>${{item.product.price}}</span>
+                                                                    </h3>
+                                                                    <p class="view-desc">{{item.product.descripition}}</p>
+                                                                    <div class="view-list-group">
+                                                                        <label class="view-list-title">tags:</label>
+                                                                        <ul class="view-tag-list">
+                                                                            {% for tag in item.product.tags.all %}
+                                                                                <li><a href="#">{{tag}}</a></li>
+                                                                            {% endfor %}
+                                                                        </ul>
+                                                                    </div>
+                                                                    <div class="view-add-group">
+                                                                        <button class="product-add" title="Add to Cart">
+                                                                            <i class="fas fa-shopping-basket"></i>
+                                                                            <span>add to cart</span>
+                                                                        </button>
+                                                                    <div class="product-action">
+                                                                        <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
+                                                                        <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
+                                                                        <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                                                                    </div>
+                                                                                    </div>
+                                                                    <div class="view-action-group">
+                                                                        <a class="view-wish wish" href="#" title="Add Your Wishlist">
+                                                                            <i class="icofont-heart"></i>
+                                                                            <span>add to wish</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                                </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                    </div> 
+                                                </div>
+                                                <!--=====================================
+                                                            PRODUCT VIEW END
+                                                =======================================-->
+
+
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="chekout-coupon">
+                                    <button class="coupon-btn">Do you have a coupon code?</button>
+                                    <form id="applyCoupon" class="coupon-form" method="post">
+                                        {% csrf_token %}
+                                        <input type="text" name="coupon_code" placeholder="Enter your coupon code">
+                                        <button type="submit"><span>apply</span></button>
+                                    </form>
+                                </div>
+                                <div class="checkout-charge" id="checkoutTable">
+                                    {% include "include/checkout_table.html" %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="col-lg-12">
+                            <div class="account-card">
+                                <div class="account-title">
+                                    <h4>contact number</h4>
+                                    <a href="{% url 'userauths:phone_create_checkout' %}"><button data-bs-toggle="modal" data-bs-target="#contact-add">add contact</button></a>
+                                </div>
+                                <div class="account-content">
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-4 alert fade show">
+                                            <div class="profile-card contact">
+                                                <h6>Primary Phone</h6>
+                                                {% if primary_phone %}
+                                                    <p>{{ primary_phone.phone }}</p>
+                                                {% else %}
+                                                    <p>No Primary Phone</p>
+                                                {% endif %}
+                                                <ul>
+                                                    {% if primary_phone and primary_phone.id %}
+                                                        <li>
+                                                            <form action="{% url 'userauths:phone_edit_checkout' primary_phone.id %}">
+                                                                {% csrf_token %}
+                                                                <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
+                                                            </form>
+                                                            <!-- <a href="{% url 'userauths:phone_edit_checkout' primary_phone.id %}">
+                                                            </a> -->
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <form action="{% url 'userauths:phone_delete_checkout' primary_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                            </form>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 col-lg-4 alert fade show">
+                                            <div class="profile-card contact">
+                                                <h6>Secondary Phone</h6>
+                                                {% if secondary_phone %}
+                                                    <p>{{ secondary_phone.phone }}</p>
+                                                {% else %}
+                                                    <p>No Secondary Phone</p>
+                                                {% endif %}
+                                                <ul>
+                                                    {% if secondary_phone and secondary_phone.id %}
+                                                        <li>
+                                                            <form action="{% url 'userauths:phone_edit_checkout' secondary_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
+                                                            </form>
+                                                            <!-- <a href="{% url 'userauths:phone-edit' secondary_phone.id %}">
+                                                            </a> -->
+                                                        </li>
+                                                        <li>
+                                                            <form action="{% url 'userauths:phone_delete_checkout' secondary_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                            </form>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-6 col-lg-4 alert fade show">
+                                            <div class="profile-card contact">
+                                                <h6>Third Phone</h6>
+                                                {% if third_phone %}
+                                                    <p>{{ third_phone.phone }}</p>
+                                                {% else %}
+                                                    <p>No Third Phone</p>
+                                                {% endif %}
+                                                <ul>
+                                                    {% if third_phone and third_phone.id %}
+                                                        <li>
+                                                            <form action="{% url 'userauths:phone_edit_checkout' third_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
+                                                            <!-- <a href="{% url 'userauths:phone-edit' third_phone.id %}"> -->
+                                                                <button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#contact-edit"></button>
+                                                            <!-- </a> -->
+                                                            </form>
+                                                        </li>
+                                                        <li>
+                                                            <form action="{% url 'userauths:phone_delete_checkout' third_phone.id %}" method="POST" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                            </form>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                                  
+                                    </div>
+                                </div>
+                            </div>
+    
+
+
+
+
+
+
+
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="account-card">
+                            <div class="account-title">
+                                <h4>delivery address</h4>
+                                <a href="{% url 'userauths:add_address_checkout' %}"><button data-bs-toggle="modal" data-bs-target="#address-add">add address</button></a>
+                            </div>
+                            <div class="account-content">
+                                <div class="row">
+                                    {% for address in addresses %}
+                                        <div class="col-md-6 col-lg-4 alert fade show">
+                                            <div class="profile-card address {% if forloop.first %}active{% endif %}">
+                                                <h6>{{ address.get_type_display }}</h6>
+                                                <p><strong>Address: </strong>{{ address.address }}</p>
+                                                <br>
+                                                {% if address.notes %}
+                                                <p><strong>Notes:</strong> {{ address.notes }}</p>
+                                                {% else %}
+                                                    <em>No notes provided</em>
+                                                {% endif %}
+                                                <ul class="user-action">
+                                                    <li>
+                                                        <a href="{% url 'userauths:address_edit_checkout' address.pk %}"><button class="edit icofont-edit" title="Edit This" data-bs-toggle="modal" data-bs-target="#address-edit-{{ address.id }}"></button></a>
+                                                    </li>
+                                                    <li>
+                                                        <form action="{% url 'userauths:address_delete_checkout' address.pk %}" method="POST" style="display: inline;">
+                                                            {% csrf_token %}
+                                                            <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-12">
+                        <div class="account-card mb-0">
+                            <div class="account-title">
+                                <h4>payment option</h4>
+                                <a href="{% url 'userauths:add_card_checkout' %}"><button data-bs-toggle="modal" data-bs-target="#payment-add">add card</button></a>
+                            </div>
+                            <div class="account-content">
+                                <div class="row">
+                                    {% for card in credit_cards %}
+                                    <div class="col-md-6 col-lg-4 alert fade show">
+                                        <div class="payment-card payment">
+                                            <img src="{{ card.image.url }}" style="width: 58px; height: 14;" alt="payment" alt="payment">
+                                            <h4>Card Number</h4>
+                                            <p>
+                                                <span>{{ card.card_number }}</span>
+                                                <sup>{{ card.cvv }}</sup>
+                                            </p>
+                                            <h5>{{ card.name }}</h5>
+                                            <form action="{% url 'userauths:delete_card_checkout' card.pk %}" method="post" style="display: inline;">
+                                                {% csrf_token %}
+                                                <button type="submit" class="trash icofont-ui-delete" title="Remove This"></button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% comment %} <div class="checkout-check">
+                                <input type="checkbox" id="checkout-check">
+                                <label for="checkout-check">By making this purchase you agree to our <a href="#">Terms and Conditions</a>.</label>
+                            </div> {% endcomment %}
+                            <div class="checkout-proced">
+                                <button onclick="buy(event)" class="btn btn-inline">Proceed to Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================
+                    CHECKOUT PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    MODAL ADD FORM START
+        =======================================-->
+        <!-- contact add form -->
+        <div class="modal fade" id="contact-add">
+            <div class="modal-dialog modal-dialog-centered"> 
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form">
+                        <div class="form-title">
+                            <h3>add new contact</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">title</label>
+                            <select class="form-select">
+                                <option selected>choose title</option>
+                                <option value="primary">primary</option>
+                                <option value="secondary">secondary</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">number</label>
+                            <input class="form-control" type="text" placeholder="Enter your number">
+                        </div>
+                        <button class="form-btn" type="submit">save contact info</button>
+                    </form>
+                </div> 
+            </div> 
+        </div>
+
+        <!-- address add form -->
+        <div class="modal fade" id="address-add">
+            <div class="modal-dialog modal-dialog-centered"> 
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form">
+                        <div class="form-title">
+                            <h3>add new address</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">title</label>
+                            <select class="form-select">
+                                <option selected>choose title</option>
+                                <option value="home">home</option>
+                                <option value="office">office</option>
+                                <option value="Bussiness">Bussiness</option>
+                                <option value="academy">academy</option>
+                                <option value="others">others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">address</label>
+                            <textarea class="form-control" placeholder="Enter your address"></textarea>
+                        </div>
+                        <button class="form-btn" type="submit">save address info</button>
+                    </form>
+                </div> 
+            </div> 
+        </div>
+
+        <!-- payment add form -->
+        <div class="modal fade" id="payment-add">
+            <div class="modal-dialog modal-dialog-centered"> 
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form">
+                        <div class="form-title">
+                            <h3>add new payment</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">card number</label>
+                            <input class="form-control" type="text" placeholder="Enter your card number">
+                        </div>
+                        <button class="form-btn" type="submit">save card info</button>
+                    </form>
+                </div> 
+            </div> 
+        </div>
+        <!--=====================================
+                    MODAL ADD FORM END
+        =======================================-->
+
+        
+        <!--=====================================
+                    MODAL EDIT FORM START
+        =======================================-->
+        <!-- contact edit form -->
+        <div class="modal fade" id="contact-edit">
+            <div class="modal-dialog modal-dialog-centered"> 
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form">
+                        <div class="form-title">
+                            <h3>edit contact info</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">title</label>
+                            <select class="form-select">
+                                <option value="primary" selected>primary</option>
+                                <option value="secondary">secondary</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">number</label>
+                            <input class="form-control" type="text" value="+8801838288389">
+                        </div>
+                        <button class="form-btn" type="submit">save contact info</button>
+                    </form>
+                </div> 
+            </div> 
+        </div>
+
+        <!-- address edit form -->
+        <div class="modal fade" id="address-edit">
+            <div class="modal-dialog modal-dialog-centered"> 
+                <div class="modal-content">
+                    <button class="modal-close" data-bs-dismiss="modal"><i class="icofont-close"></i></button>
+                    <form class="modal-form">
+                        <div class="form-title">
+                            <h3>edit address info</h3>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">title</label>
+                            <select class="form-select">
+                                <option value="home" selected>home</option>
+                                <option value="office">office</option>
+                                <option value="Bussiness">Bussiness</option>
+                                <option value="academy">academy</option>
+                                <option value="others">others</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">address</label>
+                            <textarea class="form-control" placeholder="jalkuri, fatullah, narayanganj-1420. word no-09, road no-17/A"></textarea>
+                        </div>
+                        <button class="form-btn" type="submit">save address info</button>
+                    </form>
+                </div> 
+            </div> 
+        </div>
+        <!--=====================================
+                    MODAL EDIT FORM END
+        =======================================-->
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+        <script src="https://js.stripe.com/v3/"></script>
+        
+        <script>
+
+            function buy(event) {
+                event.preventDefault();
+                
+                var stripe = Stripe('{{ pub_key }}');
+        
+                fetch('/orders/checkout/payment/', {
+                    method: 'POST',
+                    headers: {
+                        'x-CSRFToken': '{{ csrf_token }}',
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(function(session) {
+                    if (!session || !session.session || !session.session.id) {
+                        throw new Error('Invalid session data');
+                    }
+                    return stripe.redirectToCheckout({ sessionId: session.session.id });
+                })
+                .then(function(result) {
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                })
+                .catch(function(error) {
+                    console.error("Error:", error);
+                    alert('حدث خطأ أثناء معالجة الدفع. يرجى المحاولة مرة أخرى.');
+                });
+            }
+        
+
+
+
+            $(document).ready(function(e){
+
+                $(document).on('submit','#applyCoupon',function(e){
+                    e.preventDefault();  // stop refresh
+
+                    $.ajax({
+                        type: $(this).attr('method'),
+                        url: $(this).attr('action'),
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success:function(response){
+                            $('#checkoutTable').html(response['result'])
+                            //$('#review-form').trigger('reset')
+                        },
+                        error:function(){
+
+                        }
+                    })
+                })
+            })
+        </script>
+
+{% endblock boody %}
+
+
+            <!-- $(document).ready(function() {
+                $(document).on('submit', '#applyCoupon', function(e) {
+                    e.preventDefault();
+        
+                    $.ajax({
+                        type: $(this).attr('method'),
+                        url: $(this).attr('action'),
+                        data: $(this).serialize(),
+                        dataType: 'json',
+                        success: function(response) {
+                            $('#checkoutTable').html(response['result']);
+                        },
+                        error: function() {
+                            console.error("Error applying coupon");
+                        }
+                    });
+                });
+            }); -->

@@ -1,0 +1,387 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-18 23:36+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: orders/models.py:21
+msgid "Status"
+msgstr ""
+
+#: orders/models.py:23 orders/models.py:73
+msgid "Total After Coupon"
+msgstr ""
+
+#: orders/models.py:44 orders/models.py:87 orders/models.py:107
+#: products/models.py:28
+msgid "Quantity"
+msgstr ""
+
+#: orders/models.py:45 orders/models.py:88
+msgid "Total"
+msgstr ""
+
+#: orders/models.py:69 orders/models.py:105
+msgid "Code"
+msgstr ""
+
+#: orders/models.py:71
+msgid "Delivery Time"
+msgstr ""
+
+#: orders/models.py:104 products/models.py:23 products/models.py:61
+#: products/models.py:72 userauths/models.py:128
+msgid "Image"
+msgstr ""
+
+#: orders/models.py:106
+msgid "Discount"
+msgstr ""
+
+#: orders/models.py:108
+msgid "Start Date"
+msgstr ""
+
+#: orders/models.py:109
+msgid "End Date"
+msgstr ""
+
+#: products/models.py:21 products/models.py:71 userauths/models.py:129
+msgid "Name"
+msgstr ""
+
+#: products/models.py:22
+msgid "Flag"
+msgstr ""
+
+#: products/models.py:24
+msgid "Price"
+msgstr ""
+
+#: products/models.py:25
+msgid "SKU"
+msgstr ""
+
+#: products/models.py:26
+msgid "Subtitle"
+msgstr ""
+
+#: products/models.py:27
+msgid "Descripition"
+msgstr ""
+
+#: products/models.py:29 templates/base.html:214 templates/base.html:703
+msgid "Brand"
+msgstr ""
+
+#: products/models.py:60 products/models.py:97 templates/base.html:702
+msgid "Product"
+msgstr ""
+
+#: products/models.py:96
+msgid "User"
+msgstr ""
+
+#: products/models.py:98
+msgid "Rate"
+msgstr ""
+
+#: products/models.py:99
+msgid "Review"
+msgstr ""
+
+#: products/models.py:100
+msgid "Created at"
+msgstr ""
+
+#: project/settings.py:283
+msgid "Arabic"
+msgstr ""
+
+#: project/settings.py:284
+msgid "English"
+msgstr ""
+
+#: settings/models.py:9
+msgid "name"
+msgstr ""
+
+#: settings/models.py:10
+msgid "logo"
+msgstr ""
+
+#: settings/models.py:11
+msgid "subtitle"
+msgstr ""
+
+#: settings/models.py:12
+msgid "facebook"
+msgstr ""
+
+#: settings/models.py:13
+msgid "instgram"
+msgstr ""
+
+#: settings/models.py:14
+msgid "twitter"
+msgstr ""
+
+#: settings/models.py:15
+msgid "email"
+msgstr ""
+
+#: settings/models.py:16 userauths/models.py:86
+msgid "address"
+msgstr ""
+
+#: settings/models.py:17
+msgid "phones"
+msgstr ""
+
+#: settings/models.py:18
+msgid "android app"
+msgstr ""
+
+#: settings/models.py:19
+msgid "ios app"
+msgstr ""
+
+#: settings/models.py:20 templates/base.html:225 templates/base.html:536
+msgid "call us"
+msgstr ""
+
+#: settings/models.py:21 templates/base.html:232 templates/base.html:543
+msgid "email us"
+msgstr ""
+
+#: settings/models.py:22 templates/base.html:608
+msgid "free home delivery"
+msgstr ""
+
+#: settings/models.py:23 templates/base.html:619
+msgid "instant return policy"
+msgstr ""
+
+#: settings/models.py:24
+msgid "support system"
+msgstr ""
+
+#: settings/models.py:25 templates/base.html:641
+msgid "secure payment way"
+msgstr ""
+
+#: settings/models.py:26
+msgid "android ios app"
+msgstr ""
+
+#: settings/models.py:34
+msgid "fee"
+msgstr ""
+
+#: settings/models.py:41
+msgid "title"
+msgstr ""
+
+#: settings/models.py:42
+msgid "description"
+msgstr ""
+
+#: settings/models.py:43
+msgid "image"
+msgstr ""
+
+#: settings/models.py:44
+msgid "created_at"
+msgstr ""
+
+#: settings/templates/settings/home.html:78
+msgid "shop now"
+msgstr ""
+
+#: settings/templates/settings/home.html:82
+msgid "Get Offers"
+msgstr ""
+
+#: templates/base.html:109 templates/base.html:509
+msgid "Go"
+msgstr ""
+
+#: templates/base.html:119
+msgid "Offers"
+msgstr ""
+
+#: templates/base.html:120 templates/base.html:709
+msgid "Need Help"
+msgstr ""
+
+#: templates/base.html:121 templates/base.html:529 templates/base.html:675
+msgid "contact us"
+msgstr ""
+
+#: templates/base.html:164 templates/base.html:479
+msgid "Profile"
+msgstr ""
+
+#: templates/base.html:165 templates/base.html:480
+msgid "Edit Profile"
+msgstr ""
+
+#: templates/base.html:166 templates/base.html:481
+msgid "Log out"
+msgstr ""
+
+#: templates/base.html:184
+msgid "total price"
+msgstr ""
+
+#: templates/base.html:206 templates/base.html:515 templates/base.html:564
+#: templates/base.html:701
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:210 templates/base.html:518
+msgid "Shop"
+msgstr ""
+
+#: templates/base.html:218 templates/base.html:524 templates/base.html:704
+msgid "Order"
+msgstr ""
+
+#: templates/base.html:409
+msgid "total item"
+msgstr ""
+
+#: templates/base.html:448
+msgid "Proceed to Checkout"
+msgstr ""
+
+#: templates/base.html:521
+msgid "brand"
+msgstr ""
+
+#: templates/base.html:527
+msgid "offers"
+msgstr ""
+
+#: templates/base.html:528
+msgid "need help"
+msgstr ""
+
+#: templates/base.html:530
+msgid "logout"
+msgstr ""
+
+#: templates/base.html:549
+msgid "All Rights Reserved by "
+msgstr ""
+
+#: templates/base.html:568
+msgid "cartlist"
+msgstr ""
+
+#: templates/base.html:573
+msgid "wishlist"
+msgstr ""
+
+#: templates/base.html:578
+msgid "category"
+msgstr ""
+
+#: templates/base.html:630
+msgid "quick support system"
+msgstr ""
+
+#: templates/base.html:698
+msgid "quick Links"
+msgstr ""
+
+#: templates/base.html:707
+msgid "My Account"
+msgstr ""
+
+#: templates/base.html:708
+msgid "Contact"
+msgstr ""
+
+#: templates/base.html:710
+msgid "Offer"
+msgstr ""
+
+#: templates/base.html:717
+msgid "Download App"
+msgstr ""
+
+#: templates/base.html:729
+msgid "All Copyrights Reserved by "
+msgstr ""
+
+#: userauths/models.py:13
+msgid "Frist Name"
+msgstr ""
+
+#: userauths/models.py:14
+msgid "Last Name"
+msgstr ""
+
+#: userauths/models.py:15
+msgid "Username"
+msgstr ""
+
+#: userauths/models.py:16
+msgid "Email"
+msgstr ""
+
+#: userauths/models.py:29
+msgid "Cover Image"
+msgstr ""
+
+#: userauths/models.py:33
+msgid "Verified"
+msgstr ""
+
+#: userauths/models.py:85
+msgid "Type"
+msgstr ""
+
+#: userauths/models.py:87
+msgid "Notes"
+msgstr ""
+
+#: userauths/models.py:102
+msgid "type"
+msgstr ""
+
+#: userauths/models.py:103
+msgid "phone"
+msgstr ""
+
+#: userauths/models.py:130
+msgid "Card Number"
+msgstr ""
+
+#: userauths/models.py:131
+msgid "Country"
+msgstr ""
+
+#: userauths/models.py:132
+msgid "CVV"
+msgstr ""
+
+#: userauths/models.py:133
+msgid "Expiration Date"
+msgstr ""

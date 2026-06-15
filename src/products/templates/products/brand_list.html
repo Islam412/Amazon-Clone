@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    {% if LANGUAGE_CODE == 'en' %}
+        <link rel="stylesheet" href="{% static 'en/css/brand-list.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'ar/css/brand-list.css' %}">
+    {% endif %}
+{% endblock css %}
+    
+{% block boody %}
+        <!--=====================================
+                    BANNER PART START
+        =======================================-->
+        <section class="inner-section single-banner" style="background: url(images/single-banner.jpg) no-repeat center;">
+            <div class="container">
+                <h2>brand list</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">brand-list</li>
+                </ol>
+            </div>
+        </section>
+        <!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    BRAND LIST PART START
+        =======================================-->
+        <section class="inner-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                    </div>
+                </div>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 isotope-items">
+                    {% for brand in brand_list %}
+                        <div class="col all vegetables">
+                            <div class="brand-wrap">
+                                <div class="brand-media">
+
+                                    {% if brand.image %}
+                                        <img src="{{ brand.image.url }}" style="width: 150px; height: 150px;" alt="brand">
+                                    {% else %}
+                                        <img src="/media/sddefault.jpg" style="width: 150px; height: 150px;" alt="default brand image">
+                                    {% endif %}
+
+                                    <div class="brand-overlay">
+                                        <a href="{% url 'products:brand_detail' brand.slug %}"><i class="fas fa-link"></i></a>
+                                    </div>
+                                </div>
+                                <div class="brand-meta">
+                                    <h4>{{brand}}</h4>
+                                    <p>( {{brand.products_count}} items)</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                {% if is_paginated %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="bottom-paginate">
+                                <p class="page-info">Showing 12 of 60 Results</p>
+                                <ul class="pagination">
+                    
+                                    {% comment %} before {% endcomment %}
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                                                <i class="fas fa-long-arrow-alt-left"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    
+                                    {% for i in paginator.page_range %}
+                                        {% if page_obj.number == i %}
+                                            {% comment %} The page is on it {% endcomment %}
+                                            <li class="page-item"><a class="page-link active" href="#">{{i}}</a></li>
+                                        {% elif  i > page_obj.number|add:'-4'  and i < page_obj.number|add:'4' %}
+                                            {% comment %} The Pages after me {% endcomment %}
+                                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
+                                    {% comment %} After {% endcomment %}
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                                                <i class="fas fa-long-arrow-alt-right"></i>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+        <!--=====================================
+                    BRAND LIST PART END
+        =======================================-->
+{% endblock boody %}
+

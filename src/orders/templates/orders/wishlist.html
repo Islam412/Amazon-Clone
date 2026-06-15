@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    {% if LANGUAGE_CODE == 'en' %}
+        <link rel="stylesheet" href="{% static 'en/css/wishlist.css' %}">
+    {% else %}
+        <link rel="stylesheet" href="{% static 'ar/css/wishlist.css' %}">
+    {% endif %}
+{% endblock css %}
+
+{% block boody %}
+
+
+
+        <!--=====================================
+                    BANNER PART START
+        =======================================-->
+        <section class="inner-section single-banner" style="background: url(images/single-banner.jpg) no-repeat center;">
+            <div class="container">
+                <h2>wishlist</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'products:product_list' %}">shop grid</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">wishlist</li>
+                </ol>
+            </div>
+        </section>
+        <!--=====================================
+                    BANNER PART END
+        =======================================-->
+
+
+        <!--=====================================
+                    WISHLIST PART START
+        =======================================-->
+        <section class="inner-section wishlist-part">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-scroll">
+                            <table class="table-list">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Serial</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Price</th>
+                                        <th scope="col">description</th>
+                                        <th scope="col">quantity</th>
+                                        <th scope="col">status</th>
+                                        <th scope="col">shopping</th>
+                                        <th scope="col">action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                        {% for item in wishlist_items %}
+                                        <tr>
+                                            <td class="table-serial"><h6>{{ forloop.counter }}</h6></td>
+                                            <td class="table-image">
+                                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                            </td>
+                                            <td class="table-name"><h6>{{ item.product.name }}</h6></td>
+                                            <td class="table-price">
+                                                <h6>${{ item.product.price }}</h6>
+                                            </td>
+                                            <td class="table-desc">
+                                                <p>{{ item.product.descripition|truncatechars:50 }}</p>
+                                            </td>
+                                            <td class="table-status">
+                                                <h6>{{ item.product.quantity }}</h6>
+                                            </td>
+                                            <td class="table-status">
+                                                {% if item.product.quantity > 0 %}
+                                                    <h6 class="stock-in">In Stock</h6>
+                                                {% else %}
+                                                    <h6 class="stock-out">Out of Stock</h6>
+                                                {% endif %}
+                                            </td>
+                                            
+
+                                            <td class="table-shop">
+                                                <form method="POST" action="{% url 'orders:add_to_cart' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                                    <input class="product-add" style="margin-bottom: 10px;" title="Quantity Number" type="hidden" name="quantity" value="1">
+                                                    <button type="submit" class="product-add" title="Add to Cart">
+                                                        <i class="fas fa-shopping-basket"></i>
+                                                        <span>add to cart</span>
+                                                    </button>
+                                                </form>
+                                                
+                                            </td>
+                                            
+
+                                            
+                                            <td class="table-action">
+                                                <a class="trash" href="{% url 'orders:remove_from_wishlist' item.id %}" title="Remove from Wishlist">
+                                                    <i class="icofont-trash"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center mt-5">
+                            <a href="{% url 'products:product_list' %}" class="btn btn-outline">
+                                Load more items
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================
+                    WISHLIST PART END
+        =======================================-->
+
+{% endblock boody %}
